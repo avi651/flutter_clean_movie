@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter Dev (ENV)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define=ENV=dev",
+        "--dart-define=BASE_URL=https://api.themoviedb.org/3/",
+        "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253"
+      ]
+    },
+    {
+      "name": "Flutter Staging",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define=ENV=staging",
+        "--dart-define=BASE_URL=https://api.themoviedb.org/3/",
+        "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253"
+      ]
+    },
+    {
+      "name": "Flutter Production",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define=ENV=prod",
+        "--dart-define=BASE_URL=https://api.themoviedb.org/3/",
+        "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253"
+      ]
+    }
+  ]
+}
