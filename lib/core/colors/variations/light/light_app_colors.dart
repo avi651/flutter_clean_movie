@@ -6,6 +6,7 @@ import 'package:movie_clean/core/colors/interfaces/shimmer_colors_interface.dart
 import 'package:movie_clean/core/colors/variations/light/danger_color_variations.dart';
 import 'package:movie_clean/core/colors/variations/light/info_color_variations.dart';
 import 'package:movie_clean/core/colors/variations/light/neutral_color_variations.dart';
+import 'package:movie_clean/core/colors/variations/light/primary_color_variations.dart';
 import 'package:movie_clean/core/colors/variations/light/shimmer_color_variation.dart';
 import 'package:movie_clean/core/colors/variations/light/success_color_variations.dart';
 import 'package:movie_clean/core/colors/variations/light/warning_color_variations.dart';
@@ -29,14 +30,14 @@ class LightAppColors extends AppColorsInterface {
   NeutralColorsVariationInterface get neutral => LightNeutralColorVariations();
 
   @override
-  ColorVariationInterface get primary => throw LightSuccessColorVariations();
+  ColorVariationInterface get primary => LightPrimaryColorVariations();
 
   @override
-  ShimmerColorsInterface get shimmer => throw LightShimmerColorVarations();
+  ShimmerColorsInterface get shimmer => LightShimmerColorVarations();
 
   @override
-  ColorVariationInterface get success => throw LightSuccessColorVariations();
+  ColorVariationInterface get success => LightSuccessColorVariations();
 
   @override
-  ColorVariationInterface get warning => throw LightWarningColorVariations();
+  ColorVariationInterface get warning => LightWarningColorVariations();
 }
