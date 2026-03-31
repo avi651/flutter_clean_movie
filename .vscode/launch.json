@@ -22,7 +22,7 @@
       "args": [
         "--dart-define=ENV=dev",
         "--dart-define=BASE_URL=https://api.themoviedb.org/3/",
-        "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253"
+        "--dart-define=API_KEY="
       ]
     },
     {
@@ -34,7 +34,7 @@
       "args": [
         "--dart-define=ENV=staging",
         "--dart-define=BASE_URL=https://api.themoviedb.org/3/",
-        "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253"
+        "--dart-define=API_KEY="
       ]
     },
     {
@@ -46,7 +46,7 @@
       "args": [
         "--dart-define=ENV=prod",
         "--dart-define=BASE_URL=https://api.themoviedb.org/3/",
-        "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253"
+        "--dart-define=API_KEY="
       ]
     }
   ]
