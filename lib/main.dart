@@ -14,7 +14,7 @@ void main() {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-
+  _initServices();
   runApp(const App());
 }
 
