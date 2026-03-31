@@ -2,6 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Flutter Mock (Mock)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main.dart",
+      "args": [
+        "--dart-define=ENV=mock",
+        "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253",
+        "--dart-define=feature_flags=mock, no_log_jornal"
+      ]
+    },
+    {
       "name": "Flutter Dev (ENV)",
       "request": "launch",
       "type": "dart",

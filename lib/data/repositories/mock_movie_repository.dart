@@ -5,6 +5,7 @@ import 'package:movie_clean/domain/entities/movie_entity/movie_entity.dart';
 import 'package:movie_clean/domain/i_movie_repository/i_movie_repository.dart';
 
 class MockMovieRepository implements IMovieRepository {
+  const MockMovieRepository();
   @override
   RepoEitherResponse<MovieEntity> getPopularMovie() async {
     await Future.delayed(const Duration(seconds: 2));
