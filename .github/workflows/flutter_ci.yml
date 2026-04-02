@@ -11,43 +11,43 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout
+      # 1. Checkout code
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 2. Cache dependencies
       - name: Cache Pub
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.pub-cache
           key: ${{ runner.os }}-pub-cache
 
-      # 3. Java setup
+      # 3. Setup Java
       - name: Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      # 4. Flutter setup
+      # 4. Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
 
-      # 5. Install deps
+      # 5. Install dependencies
       - name: Install Dependencies
         run: flutter pub get
 
-      # 6. Analyze
+      # 6. Analyze code
       - name: Analyze Code
         run: flutter analyze
 
-      # 7. Test
+      # 7. Run tests
       - name: Run Tests
         run: flutter test
 
-      # 8. Set ENV (IMPORTANT 🔥)
+      # 8. Set environment variables (DEV vs PROD)
       - name: Set Environment Variables
         run: |
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
@@ -58,16 +58,16 @@ jobs:
             echo "API_KEY=${{ secrets.DEV_API_KEY }}" >> $GITHUB_ENV
           fi
 
-      # 9. Build APK with env
+      # 9. Build APK with env variables
       - name: Build APK
         run: |
           flutter build apk --release \
           --dart-define=BASE_URL=$BASE_URL \
           --dart-define=API_KEY=$API_KEY
 
-      # 10. Upload APK
+      # 10. Upload APK artifact (FIXED v4)
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
