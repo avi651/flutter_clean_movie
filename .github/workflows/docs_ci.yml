@@ -14,20 +14,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Install pandoc
       - name: Install Pandoc
         run: sudo apt-get install -y pandoc
 
-      # Convert markdown → HTML
       - name: Build site
         run: |
           mkdir site
+
+          # Convert all markdown files
           for file in docs/*.md; do
             name=$(basename "$file" .md)
             pandoc "$file" -o "site/$name.html"
           done
 
-      # Deploy to gh-pages branch
+          # 🔥 FORCE homepage (IMPORTANT)
+          if [ -f site/index.html ]; then
+            echo "index exists"
+          else
+            first=$(ls site | head -n 1)
+            cp site/$first site/index.html
+          fi
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
