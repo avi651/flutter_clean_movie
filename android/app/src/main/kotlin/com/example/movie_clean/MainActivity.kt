@@ -1,4 +1,4 @@
-package com.example.movie_clean
+package com.example.ci_cd_pro
 
 import io.flutter.embedding.android.FlutterActivity
 
