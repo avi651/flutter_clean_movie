@@ -1,0 +1,73 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+
+jobs:
+  android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Cache dependencies
+      - name: Cache Pub
+        uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-cache
+
+      # 3. Java setup
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # 4. Flutter setup
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+
+      # 5. Install deps
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # 6. Analyze
+      - name: Analyze Code
+        run: flutter analyze
+
+      # 7. Test
+      - name: Run Tests
+        run: flutter test
+
+      # 8. Set ENV (IMPORTANT 🔥)
+      - name: Set Environment Variables
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+            echo "BASE_URL=${{ secrets.PROD_BASE_URL }}" >> $GITHUB_ENV
+            echo "API_KEY=${{ secrets.PROD_API_KEY }}" >> $GITHUB_ENV
+          else
+            echo "BASE_URL=${{ secrets.DEV_BASE_URL }}" >> $GITHUB_ENV
+            echo "API_KEY=${{ secrets.DEV_API_KEY }}" >> $GITHUB_ENV
+          fi
+
+      # 9. Build APK with env
+      - name: Build APK
+        run: |
+          flutter build apk --release \
+          --dart-define=BASE_URL=$BASE_URL \
+          --dart-define=API_KEY=$API_KEY
+
+      # 10. Upload APK
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
