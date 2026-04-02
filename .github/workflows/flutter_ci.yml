@@ -5,78 +5,69 @@ on:
     branches: [ main, develop ]
   pull_request:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   android:
     name: Build & Distribute APK
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Cache dependencies
       - name: Cache Pub
         uses: actions/cache@v4
         with:
           path: ~/.pub-cache
           key: ${{ runner.os }}-pub-cache
 
-      # 3. Setup Java
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      # 4. Setup Flutter (FIXED 🔥)
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 'stable'
 
-      # 5. Install dependencies
       - name: Install Dependencies
         run: flutter pub get
 
-      # 6. Analyze
       - name: Analyze Code
         run: flutter analyze
 
-      # 7. Run tests
       - name: Run Tests
         run: flutter test
 
-      # 8. Set ENV (DEV vs PROD)
       - name: Set Environment Variables
         run: |
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
-            echo "BASE_URL=${{ secrets.PROD_BASE_URL }}" >> $GITHUB_ENV
-            echo "API_KEY=${{ secrets.PROD_API_KEY }}" >> $GITHUB_ENV
+            echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
+            echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
           else
-            echo "BASE_URL=${{ secrets.DEV_BASE_URL }}" >> $GITHUB_ENV
-            echo "API_KEY=${{ secrets.DEV_API_KEY }}" >> $GITHUB_ENV
+            echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
+            echo "API_KEY=${{ secrets.API_KEY }}" >> $GITHUB_ENV
           fi
 
-      # 9. Build APK
       - name: Build APK
         run: |
           flutter build apk --release \
           --dart-define=BASE_URL=$BASE_URL \
           --dart-define=API_KEY=$API_KEY
 
-      # 10. Upload APK (latest version fix)
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
 
-      # 11. Install Firebase CLI
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      # 12. Distribute to Firebase 🔥
       - name: Distribute APK to Firebase
         run: |
           firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
