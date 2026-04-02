@@ -1,0 +1,52 @@
+name: iOS CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  ios:
+    name: Build iOS
+    runs-on: macos-latest
+
+    # ✅ Always prod (you can make dynamic later)
+    environment: prod
+
+    steps:
+      # Checkout
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Flutter setup
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.6'
+
+      # Install deps
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # Install CocoaPods
+      - name: Install Pods
+        run: |
+          cd ios
+          pod install
+          cd ..
+
+      # Build (no signing)
+      - name: Build iOS (no codesign)
+        run: |
+          flutter build ios --release \
+          --no-codesign \
+          --dart-define=ENV=prod \
+          --dart-define=BASE_URL=${{ secrets.BASE_URL }} \
+          --dart-define=API_KEY=${{ secrets.API_KEY }}
+
+      # Upload build
+      - name: Upload iOS Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: build/ios/iphoneos/
