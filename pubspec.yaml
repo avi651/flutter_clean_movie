@@ -67,7 +67,6 @@ dependencies:
   connectivity_plus:
   intl:
   webview_flutter:
-  webview_cookie_manager:
 
   flutter_map:
   latlong2:
