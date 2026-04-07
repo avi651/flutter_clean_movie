@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_clean/app.dart';
 import 'package:movie_clean/core/colors/app_colors.dart';
 import 'package:movie_clean/core/shared/permission_service.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // StatusBar setup
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: lightAppColors.primary.v100,
@@ -14,8 +16,20 @@ void main() {
       statusBarIconBrightness: Brightness.light,
     ),
   );
-  _initServices();
+
+  // 1️⃣ Hive init
+  await _initHive();
+
+  // 2️⃣ Permissions
+  await _initServices();
+
+  // 3️⃣ Run App
   runApp(const App());
+}
+
+Future<void> _initHive() async {
+  await Hive.initFlutter();
+  await Hive.openBox('movies'); // box name 'movies'
 }
 
 Future<void> _initServices() async {
