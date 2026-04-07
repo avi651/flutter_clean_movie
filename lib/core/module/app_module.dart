@@ -8,12 +8,13 @@ import 'package:movie_clean/data/repositories/movie_repository.dart';
 import 'package:movie_clean/data/repositories/mock_movie_repository.dart';
 import 'package:movie_clean/domain/i_movie_repository/i_movie_repository.dart';
 import 'package:movie_clean/core/network_info/network_info.dart';
-import 'package:movie_clean/presentation/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_clean/presentation/bloc/internet_status_cubit/internet_status_cubit.dart';
+import 'package:movie_clean/presentation/bloc/movie_bloc/movie_bloc.dart';
+import 'package:movie_clean/presentation/bloc/movie_bottom_nav_cubit/movie_bottom_nav_cubit.dart';
 import 'package:movie_clean/core/services/env.dart';
-import 'package:movie_clean/presentation/screens/home_page.dart';
+import 'package:movie_clean/presentation/screens/movie_tabbar/movie_tabbar.dart';
 
-class AppModule extends Module {
+class CoreModule extends Module {
   @override
   void binds(i) {
     i.addSingleton<MovieLocalDatasource>(
@@ -33,7 +34,18 @@ class AppModule extends Module {
             )
           : MockMovieRepository(),
     );
+  }
+}
 
+class AppModule extends Module {
+  AppModule();
+
+  @override
+  List<Module> get imports => [CoreModule()];
+
+  @override
+  void binds(i) {
+    i.addBlocSingleton<MovieBottomNavCubit>(() => MovieBottomNavCubit());
     i.addBlocSingleton<MovieBloc>(
       () => MovieBloc(repository: i.get<IMovieRepository>()),
     );
@@ -43,6 +55,6 @@ class AppModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.child(HomePage.route, child: (context) => const HomePage());
+    r.child(MovieTabbar.route, child: (context) => const MovieTabbar());
   }
 }
