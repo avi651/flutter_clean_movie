@@ -1,3 +1,7 @@
+import 'package:ansicolor/ansicolor.dart';
+import 'package:flutter/material.dart';
+import 'package:movie_clean/core/colors/app_colors.dart';
+
 enum LogLevel {
   error,
   critical,
@@ -7,8 +11,30 @@ enum LogLevel {
   verbose;
 
   const LogLevel();
+
+  Color get color => switch (this) {
+    LogLevel.critical || LogLevel.error => pureColors.danger.v100,
+    LogLevel.warning => pureColors.warning.v100,
+    _ => pureColors.info.v100,
+  };
+
+  AnsiPen get pen => _defaultColors[this] ?? (AnsiPen()..gray());
 }
 
-// Color get color => switch (this) {
-//   LogLevel.critical || LogLevel.error => colors.danger.v100,
-// }
+final _defaultColors = {
+  LogLevel.critical: AnsiPen()..red(),
+  LogLevel.warning: AnsiPen()..yellow(),
+  LogLevel.verbose: AnsiPen()..gray(),
+  LogLevel.info: AnsiPen()..blue(),
+  LogLevel.debug: AnsiPen()..gray(),
+  LogLevel.error: AnsiPen()..red(),
+};
+
+final logLevelPriorityList = [
+  LogLevel.critical,
+  LogLevel.warning,
+  LogLevel.verbose,
+  LogLevel.info,
+  LogLevel.debug,
+  LogLevel.error,
+];
