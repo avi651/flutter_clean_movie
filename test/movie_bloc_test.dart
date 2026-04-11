@@ -18,7 +18,7 @@ void main() {
 
   setUp(() {
     repository = MockRepository();
-    bloc = MovieBloc(repository: repository);
+    bloc = MovieBloc(repository: repository, logger: null);
   });
 
   group("MovieBloc", () {
