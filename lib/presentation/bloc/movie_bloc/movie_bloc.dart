@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_clean/core/services/typedef.dart';
 import 'package:movie_clean/domain/i_movie_repository/i_movie_repository.dart';
 import 'package:movie_clean/core/services/failure.dart';
 import 'package:movie_clean/domain/entities/movie_entity/movie_entity.dart';
