@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_clean/core/colors/interfaces/shimmer_colors_interface.dart';
+import 'package:movie_clean/core/theme/interfaces/shimmer_colors_interface.dart';
 
 class LightShimmerColorVarations extends ShimmerColorsInterface {
   @override

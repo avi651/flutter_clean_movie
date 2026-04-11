@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_clean/core/colors/interfaces/colors_variation_interface.dart';
-import 'package:movie_clean/core/colors/interfaces/neutral_colors_variation_interface.dart';
-import 'package:movie_clean/core/colors/interfaces/shimmer_colors_interface.dart';
+import 'package:movie_clean/core/theme/interfaces/colors_variation_interface.dart';
+import 'package:movie_clean/core/theme/interfaces/neutral_colors_variation_interface.dart';
+import 'package:movie_clean/core/theme/interfaces/shimmer_colors_interface.dart';
 
 abstract class AppColorsInterface {
   const AppColorsInterface();

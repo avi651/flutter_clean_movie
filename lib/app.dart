@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:movie_clean/app_bloc_scope.dart';
 import 'package:movie_clean/core/module/app_module.dart';
 
 class App extends StatelessWidget {
@@ -9,9 +10,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return ModularApp(
       module: AppModule(),
-      child: MaterialApp.router(
-        routerConfig: Modular.routerConfig, // ✅ FIXED
-        debugShowCheckedModeBanner: false,
+      child: AppBlocScope(
+        child: MaterialApp.router(
+          routerConfig: Modular.routerConfig, // ✅ FIXED
+          debugShowCheckedModeBanner: false,
+        ),
       ),
     );
   }

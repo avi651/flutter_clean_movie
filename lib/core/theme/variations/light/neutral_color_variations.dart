@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_clean/core/colors/interfaces/neutral_colors_variation_interface.dart';
+import 'package:movie_clean/core/theme/interfaces/neutral_colors_variation_interface.dart';
 
 class LightNeutralColorVariations extends NeutralColorsVariationInterface {
   @override

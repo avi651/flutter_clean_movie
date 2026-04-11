@@ -3,43 +3,35 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:intl/intl.dart';
-import 'package:movie_clean/core/shared/permission_service.dart';
 import 'package:movie_clean/domain/logger/log_data.dart';
-import 'package:path_provider/path_provider.dart' as path;
+import 'package:path_provider/path_provider.dart';
 
 class LogJournal {
   LogJournal._internal();
-
   static final LogJournal _instance = LogJournal._internal();
 
-  factory LogJournal() {
-    return _instance;
-  }
+  factory LogJournal() => _instance;
 
   late final StreamController<LogData> _streamController;
   late final IOSink _sink;
+  late final File _file;
+
   bool _isFileEmpty = true;
 
-  FutureOr<void> write(LogData data) async {
-    _streamController.add(data);
-  }
+  final Completer<Directory> _dirCompleter = Completer<Directory>();
+  Option<Directory> _maybeDirectory = none();
 
-  Future<void> _onLogData(LogData data) async {
-    String separator = ",\n";
-    if (_isFileEmpty) {
-      _isFileEmpty = false;
-      separator = "";
-    }
-
-    final String formattedJson = separator + data.toFormattedJson();
-
-    _sink.write(formattedJson);
-  }
+  /// PUBLIC API
 
   Future<void> init() async {
-    _file = await _getLogFile();
-    _isFileEmpty = (await _file.exists());
-    _isFileEmpty = !_isFileEmpty || (await _file.length()) == 0;
+    final dir = await _getOrCreateDirectory();
+
+    final date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    _file = File('${dir.path}/$date.txt');
+
+    final exists = await _file.exists();
+    final length = exists ? await _file.length() : 0;
+    _isFileEmpty = length == 0;
 
     _sink = _file.openWrite(mode: FileMode.append);
 
@@ -47,63 +39,61 @@ class LogJournal {
     _streamController.stream.listen(_onLogData);
   }
 
+  Future<void> write(LogData data) async {
+    _streamController.add(data);
+  }
+
   Future<void> dispose() async {
     await _streamController.close();
+    await _sink.flush();
     await _sink.close();
   }
 
-  /// File Handling
+  /// INTERNALS
 
-  late final File _file;
+  Future<void> _onLogData(LogData data) async {
+    String separator = _isFileEmpty ? "" : ",\n";
 
-  final Completer<Directory?> _externalStorageDirCompleter =
-      Completer<Directory?>();
-
-  Option<Directory> _maybeDirectory = none();
-
-  Future<Directory?> _getExternalStorageDirectory() async {
-    if (_externalStorageDirCompleter.isCompleted) {
-      return _externalStorageDirCompleter.future;
+    if (_isFileEmpty) {
+      _isFileEmpty = false;
     }
 
-    final dir = await path.getExternalStorageDirectory();
-    _externalStorageDirCompleter.complete(dir);
-    return dir;
+    final formattedJson = separator + data.toFormattedJson();
+    _sink.write(formattedJson);
   }
 
-  Future<void> _createDirectory(Directory dir) async {
+  /// DIRECTORY HANDLING (SAFE)
+
+  Future<Directory> _getOrCreateDirectory() async {
     if (_maybeDirectory.isSome()) {
-      return;
+      return _maybeDirectory.getOrElse(() => throw Exception());
     }
-    final dirCreated = await dir.exists();
-    if (!dirCreated) {
-      final dir0 = await dir.create(recursive: true);
-      _maybeDirectory = some(dir0);
-    }
-  }
 
-  Future<String?> _getLocalPath() async {
-    return _maybeDirectory.fold(() async {
-      late Directory dir;
-      if (PermissionsService().hasExternalStoragePermission) {
-        dir = Directory('/storage/emulated/data/files');
-      } else {
-        final extDir = await _getExternalStorageDirectory();
-        if (extDir == null) return null;
-        dir = Directory(extDir.path);
+    if (_dirCompleter.isCompleted) {
+      return _dirCompleter.future;
+    }
+
+    try {
+      // ✅ BEST PRACTICE: system-provided directory
+      final baseDir = await getExternalStorageDirectory();
+
+      if (baseDir == null) {
+        throw Exception("External storage directory not available");
       }
-      _createDirectory(dir);
 
-      return dir.path;
-    }, (dir) => dir.path);
-  }
+      final logDir = Directory('${baseDir.path}/logs');
 
-  Future<File> _getLogFile() async {
-    final path = await _getLocalPath();
-    if (path == null) {
-      throw Exception("Could not get local path logs");
+      if (!await logDir.exists()) {
+        await logDir.create(recursive: true);
+      }
+
+      _maybeDirectory = some(logDir);
+      _dirCompleter.complete(logDir);
+
+      return logDir;
+    } catch (e) {
+      _dirCompleter.completeError(e);
+      rethrow;
     }
-    final date = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    return File('$path/$date.txt');
   }
 }

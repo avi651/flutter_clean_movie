@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_clean/domain/logger/log_data.dart';
 import 'package:movie_clean/domain/logger/logger_cubit.dart';
+import 'package:movie_clean/presentation/widgets/f_log_tile.dart';
 
 class LogPage extends StatefulWidget {
   static const String path = '/logs';
@@ -25,7 +26,7 @@ class _LogPageState extends State<LogPage> {
             itemCount: logs.length,
             itemBuilder: (context, index) {
               final logData = logs[logs.length - index - 1];
-              return Text(logData.toString());
+              return FLogTile(logData: logData, dateFormat: dataFormat);
             },
           );
         },

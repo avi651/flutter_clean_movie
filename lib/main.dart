@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_clean/app.dart';
-import 'package:movie_clean/core/colors/app_colors.dart';
+import 'package:movie_clean/core/theme/app_colors.dart';
 import 'package:movie_clean/core/shared/permission_service.dart';
+import 'package:movie_clean/domain/logger/log_journal.dart';
+import 'package:movie_clean/domain/logger/logger_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,4 +36,16 @@ Future<void> _initHive() async {
 
 Future<void> _initServices() async {
   await PermissionsService().askForPermissions();
+
+  await LogJournal().init();
+
+  logger.info(
+    "App Launched",
+    details: [
+      "======================================================",
+      "LoggerService Started",
+      "======================================================",
+    ],
+    context: 'main',
+  );
 }

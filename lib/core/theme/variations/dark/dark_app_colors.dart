@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_clean/core/colors/interfaces/shimmer_colors_interface.dart';
-import 'package:movie_clean/core/colors/variations/dark/shimmer_color_variations.dart';
-import 'package:movie_clean/core/colors/variations/light/light_app_colors.dart';
+import 'package:movie_clean/core/theme/interfaces/shimmer_colors_interface.dart';
+import 'package:movie_clean/core/theme/variations/dark/shimmer_color_variations.dart';
+import 'package:movie_clean/core/theme/variations/light/light_app_colors.dart';
 
 class DarkAppColors extends LightAppColors {
   const DarkAppColors();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_clean/core/colors/interfaces/colors_variation_interface.dart';
+import 'package:movie_clean/core/theme/interfaces/colors_variation_interface.dart';
 
 class LightDangerColorVariations extends ColorVariationInterface {
   @override

@@ -1,5 +1,4 @@
 {
-    "editor.lightbulb.enabled": true,
     "editor.quickSuggestions": {
         "other": true,
         "comments": false,

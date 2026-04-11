@@ -35,5 +35,6 @@ abstract class Env {
   static bool _hasFeature(String feature) => _featuresMap[feature] ?? false;
 
   static bool get useApi => !_hasFeature("mock");
+  static bool get showDebugLogs => _hasFeature("show_logs");
   static bool get skipAuthentication => _hasFeature("skip_auth");
 }

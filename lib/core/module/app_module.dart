@@ -22,6 +22,9 @@ import 'package:movie_clean/presentation/widgets/logs_page.dart';
 class CoreModule extends Module {
   @override
   void binds(i) {
+    // -----------------------------
+    // Datasources & Network
+    // -----------------------------
     i.addSingleton<MovieLocalDatasource>(
       () => MovieLocalDatasource(Hive.box('movies')),
     );
@@ -30,6 +33,9 @@ class CoreModule extends Module {
 
     i.addSingleton<MovieClient>(() => MovieClient(dio: Dio()));
 
+    // -----------------------------
+    // Repository
+    // -----------------------------
     i.addSingleton<IMovieRepository>(
       () => Env.useApi
           ? MovieRepository(
@@ -40,13 +46,20 @@ class CoreModule extends Module {
           : MockMovieRepository(),
     );
 
-    // Services
+    // -----------------------------
+    // Logger (CORE ONLY - NO CUBIT ❗)
+    // -----------------------------
     i.addSingleton<LogJournal>(
       () => LogJournal(),
       config: BindConfig<LogJournal>(onDispose: (e) => e.dispose()),
     );
 
-    i.addSingleton<ILoggerService>(() => logger);
+    i.addSingleton<ILoggerService>(
+      () => LoggerService(
+        logJournal: i.get<LogJournal>(),
+        // ❌ REMOVE loggerCubit from here
+      ),
+    );
   }
 }
 
@@ -58,18 +71,26 @@ class AppModule extends Module {
 
   @override
   void binds(i) {
+    // -----------------------------
+    // Cubits / Blocs (UI Layer)
+    // -----------------------------
+    i.addBlocSingleton<LoggerCubit>(() => LoggerCubit());
+
     i.addBlocSingleton<MovieBottomNavCubit>(() => MovieBottomNavCubit());
+
     i.addBlocSingleton<MovieBloc>(
-      () => MovieBloc(repository: i.get<IMovieRepository>()),
+      () => MovieBloc(
+        repository: i.get<IMovieRepository>(),
+        logger: i.get<ILoggerService>(),
+      ),
     );
 
     i.addBlocSingleton<InternetStatusCubit>(() => InternetStatusCubit());
-    i.addBlocSingleton<LoggerCubit>(() => LoggerCubit());
   }
 
   @override
   void routes(RouteManager r) {
-    r.child(MovieTabbar.route, child: (context) => const MovieTabbar());
-    r.child(LogPage.path, child: (context) => const LogPage());
+    r.child(MovieTabbar.route, child: (_) => const MovieTabbar());
+    r.child(LogPage.path, child: (_) => const LogPage());
   }
 }
