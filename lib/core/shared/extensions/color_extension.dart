@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 extension ColorExtension on Color {
   Color blendColorWithWhite(double opacity) {
-    // Clamp opacity to [0 , 1]
-
     opacity = opacity.clamp(0.0, 1.0);
 
     final int r = (this.r * 255.0).round().clamp(0, 255);
