@@ -10,7 +10,7 @@ env:
 
 jobs:
   android:
-    name: Build & Distribute APK
+    name: Build APK & AAB
     runs-on: ubuntu-latest
 
     steps:
@@ -34,7 +34,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # 🔹 Flutter setup (same as local)
+      # 🔹 Flutter setup
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -60,7 +60,7 @@ jobs:
           --dart-define=BASE_URL=${{ secrets.BASE_URL }} \
           --dart-define=API_KEY=${{ secrets.API_KEY }}
 
-      # 🔹 Build AAB (Play Store)
+      # 🔹 Build AAB
       - name: Build AAB
         run: |
           flutter build appbundle --release \
@@ -80,22 +80,3 @@ jobs:
         with:
           name: app-release-aab
           path: build/app/outputs/bundle/release/app-release.aab
-
-      # 🔹 Install Firebase CLI
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-
-      # 🔍 Verify secrets (fail early if missing)
-      - name: Verify Firebase Secrets
-        run: |
-          if [ -z "${{ secrets.FIREBASE_APP_ID }}" ]; then echo "❌ FIREBASE_APP_ID missing"; exit 1; else echo "✅ FIREBASE_APP_ID OK"; fi
-          if [ -z "${{ secrets.FIREBASE_TOKEN }}" ]; then echo "❌ FIREBASE_TOKEN missing"; exit 1; else echo "✅ FIREBASE_TOKEN OK"; fi
-
-      # 🔥 Distribute APK to Firebase
-      - name: Distribute APK to Firebase
-        run: |
-          firebase appdistribution:distribute \
-          "build/app/outputs/flutter-apk/app-release.apk" \
-          --app "${{ secrets.FIREBASE_APP_ID }}" \
-          --groups "testers" \
-          --token "${{ secrets.FIREBASE_TOKEN }}"
