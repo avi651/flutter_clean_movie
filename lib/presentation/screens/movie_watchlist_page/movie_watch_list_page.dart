@@ -11,7 +11,6 @@ class MovieWatchListPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            print("Button Pressed");
             logger.navigateToLogsScreen();
           },
           child: Text("Click Me"),
