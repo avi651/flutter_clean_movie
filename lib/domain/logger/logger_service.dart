@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movie_clean/domain/logger/i_logger_service.dart';
 import 'package:movie_clean/domain/logger/log_data.dart';
