@@ -26,6 +26,29 @@ class LightPrimaryColorVariations extends ColorVariationInterface {
   Color get v05 => const Color(0xFFF6F3F9);
 }
 
+class LightPrimaryOnSurfaceColorVariations extends ColorVariationInterface {
+  @override
+  Color get v05 => const Color(0xFFF6F3F9);
+  @override
+  Color get v10 => const Color(0xFFFDE8F4);
+  @override
+  Color get v20 => const Color(0xFFCAB9DD);
+  @override
+  Color get v30 => const Color(0xFFCAB9DD);
+  @override
+  Color get v40 => const Color(0xFFB8A1D1);
+  @override
+  Color get v50 => const Color(0xFFA68AC6);
+  @override
+  Color get v60 => const Color(0xFF9472BA);
+  @override
+  Color get v70 => const Color(0xFFB81DA1);
+  @override
+  Color get v80 => const Color(0xFFB81DA1);
+  @override
+  Color get v90 => const Color(0xFFEDE8F4);
+}
+
 class VendorLightPrimaryColorVariations extends ColorVariationInterface {
   @override
   Color get v100 => const Color(0xFF212121);

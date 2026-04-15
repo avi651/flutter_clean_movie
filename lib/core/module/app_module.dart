@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:movie_clean/core/shared/extensions/injector_ext.dart';
+import 'package:movie_clean/core/theme/bloc/theme_bloc.dart';
 import 'package:movie_clean/data/datasources/movie_local_datasource.dart';
 import 'package:movie_clean/data/datasources/movie_client.dart';
 import 'package:movie_clean/data/repositories/movie_repository.dart';
@@ -86,6 +87,7 @@ class AppModule extends Module {
     );
 
     i.addBlocSingleton<InternetStatusCubit>(() => InternetStatusCubit());
+    i.addBlocSingleton<ThemeBloc>(() => ThemeBloc());
   }
 
   @override

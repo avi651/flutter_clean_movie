@@ -5,8 +5,10 @@ import 'package:movie_clean/core/theme/interfaces/neutral_colors_variation_inter
 import 'package:movie_clean/core/theme/interfaces/shimmer_colors_interface.dart';
 import 'package:movie_clean/core/theme/variations/light/danger_color_variations.dart';
 import 'package:movie_clean/core/theme/variations/light/info_color_variations.dart';
+import 'package:movie_clean/core/theme/variations/light/neutral_color_variations.dart';
 import 'package:movie_clean/core/theme/variations/light/primary_color_variations.dart';
 import 'package:movie_clean/core/theme/variations/light/shimmer_color_variation.dart';
+import 'package:movie_clean/core/theme/variations/light/warning_color_variations.dart';
 
 class VendorAppColors extends AppColorsInterface {
   const VendorAppColors();
@@ -16,25 +18,23 @@ class VendorAppColors extends AppColorsInterface {
   Color get card => throw UnimplementedError();
 
   @override
-  ColorVariationInterface get info => throw LightInfoColorVariations();
+  ColorVariationInterface get info => LightInfoColorVariations();
 
   @override
-  NeutralColorsVariationInterface get neutral =>
-      throw LightInfoColorVariations();
+  NeutralColorsVariationInterface get neutral => LightNeutralColorVariations();
 
   @override
-  ColorVariationInterface get primary =>
-      throw VendorLightPrimaryColorVariations();
+  ColorVariationInterface get primary => VendorLightPrimaryColorVariations();
 
   @override
-  ShimmerColorsInterface get shimmer => throw LightShimmerColorVarations();
+  ShimmerColorsInterface get shimmer => LightShimmerColorVarations();
 
   @override
-  ColorVariationInterface get success => throw LightShimmerColorVarations();
+  ColorVariationInterface get success => LightWarningColorVariations();
 
   @override
-  ColorVariationInterface get warning => throw LightShimmerColorVarations();
+  ColorVariationInterface get warning => LightWarningColorVariations();
 
   @override
-  ColorVariationInterface get danger => throw LightDangerColorVariations();
+  ColorVariationInterface get danger => LightDangerColorVariations();
 }
