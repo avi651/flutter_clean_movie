@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -56,6 +57,8 @@ Future<void> _initServices() async {
 
   await LocalStorageService.to.initLocalStorage();
   await LocalStorageService.to.initHydratedStorage();
+
+  await EasyLocalization.ensureInitialized();
 
   Bloc.observer = BlocLogger();
   Modular.setObservers([RouteObserverLogger()]);

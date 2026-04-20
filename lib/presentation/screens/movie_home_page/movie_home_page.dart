@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movie_clean/presentation/bloc/movie_bloc/movie_bloc.dart';
@@ -27,7 +28,7 @@ class _MovieHomePageState extends State<MovieHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MovieAppBar(appBarText: "Movies"),
+      appBar: MovieAppBar(appBarText: "app_title".tr()),
       body: MovieBody(bloc: bloc),
     );
   }
