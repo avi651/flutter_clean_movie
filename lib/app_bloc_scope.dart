@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movie_clean/domain/logger/logger_cubit.dart';
+import 'package:movie_clean/presentation/ai_chat_cubit/ai_chat_cubit.dart';
 import 'package:movie_clean/presentation/bloc/internet_status_cubit/internet_status_cubit.dart';
 import 'package:movie_clean/presentation/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_clean/presentation/bloc/movie_bottom_nav_cubit/movie_bottom_nav_cubit.dart';
@@ -22,6 +23,7 @@ class AppBlocScope extends StatelessWidget {
         BlocProvider.value(value: Modular.get<InternetStatusCubit>()),
         BlocProvider.value(value: Modular.get<LoggerCubit>()),
         BlocProvider.value(value: Modular.get<ThemeBloc>()),
+        BlocProvider.value(value: Modular.get<AIChatCubit>()),
       ],
       child: child,
     );

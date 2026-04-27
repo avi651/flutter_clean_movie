@@ -94,6 +94,14 @@ abstract class AppTheme {
       outlinedButtonTheme: buildOutlineButtonTheme(colors: _colors),
       textButtonTheme: buildTextButtonTheme(colors: _colors),
 
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: _colors.background,
+        selectedItemColor: _colors.primary.v100,
+        unselectedItemColor: _colors.neutral.v60,
+        type: BottomNavigationBarType.fixed,
+        elevation: 8,
+      ),
+
       inputDecorationTheme: InputDecorationTheme(
         fillColor: _colors.neutral.v10,
         suffixIconColor: _colors.neutral.v100,

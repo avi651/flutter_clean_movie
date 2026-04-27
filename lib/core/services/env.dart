@@ -10,8 +10,10 @@ abstract class Env {
   static const movieBaseUrl = String.fromEnvironment('BASE_URL');
   static const movieApiKey = String.fromEnvironment('API_KEY');
   static const placeApiKey = String.fromEnvironment('places_api_key');
+  static const openAIApiKey = String.fromEnvironment('OPEN_API_KEY');
 
   // Proxy internet.proxy
+
   static const proxyConfig = "the Url of your proxy server";
 
   //HydratedStoragePassword
