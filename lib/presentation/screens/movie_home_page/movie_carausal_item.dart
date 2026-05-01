@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:markdown_widget/markdown_widget.dart';
 import 'package:movie_clean/domain/entities/movie_result_entity.dart/movie_result_entity.dart';
 
 class MovieCarouselItem extends StatelessWidget {
@@ -10,7 +11,11 @@ class MovieCarouselItem extends StatelessWidget {
 
   String get imageUrl {
     final path = movie.posterPath;
-    if (path == null || path.isEmpty) return "";
+
+    if (path == null || path.isEmpty) {
+      return "";
+    }
+
     return "$_baseUrl$path";
   }
 
@@ -18,45 +23,56 @@ class MovieCarouselItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final url = imageUrl;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.grey.shade300,
-        image: url.isNotEmpty
-            ? DecorationImage(image: NetworkImage(url), fit: BoxFit.cover)
-            : null,
-      ),
+    return SizedBox(
+      width: double.infinity,
       child: Stack(
+        fit: StackFit.expand,
         children: [
-          /// 🔥 fallback icon if no image
-          if (url.isEmpty) const Center(child: Icon(Icons.movie, size: 50)),
+          /// 🔥 Movie Image
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              image: url.isNotEmpty
+                  ? DecorationImage(
+                      image: NetworkImage(url),
 
-          /// 🔥 gradient overlay (better UI)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.all(10),
+                      /// ✅ Full cover
+                      fit: BoxFit.fitWidth,
+                    )
+                  : null,
+            ),
+            child: url.isEmpty
+                ? const Center(child: Icon(Icons.movie, size: 60))
+                : null,
+          ),
+
+          /// 🔥 Gradient Overlay
+          Positioned.fill(
+            child: DecoratedBox(
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(12),
-                ),
                 gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, Colors.black.toOpacity(0.8)],
                 ),
               ),
-              child: Text(
-                movie.title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+          ),
+
+          /// 🔥 Movie Title
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: 20,
+            child: Text(
+              movie.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

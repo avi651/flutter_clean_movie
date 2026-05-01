@@ -1,130 +1,332 @@
 import 'package:flutter/material.dart';
+
+import 'package:movie_clean/core/resources/app_sizes.dart';
 import 'package:movie_clean/core/theme/app_colors.dart';
 import 'package:movie_clean/core/theme/extensions/material_state_property_extension.dart';
 import 'package:movie_clean/core/theme/theme_data/button_theme.dart';
 
 abstract class AppTheme {
   static ThemeData build({required Brightness brightness}) {
-    // ignore: no_leading_underscores_for_local_identifiers
-    final _colors = switch (brightness) {
+    final colors = switch (brightness) {
       Brightness.dark => darkAppColors,
       _ => lightAppColors,
     };
 
     return ThemeData(
-      scaffoldBackgroundColor: _colors.background,
+      useMaterial3: true,
+
+      // =====================================================
+      // Scaffold
+      // =====================================================
+      scaffoldBackgroundColor: colors.background,
+
+      // =====================================================
+      // Color Scheme
+      // =====================================================
       colorScheme: ColorScheme.fromSeed(
-        seedColor: _colors.primary.v100,
-        secondary: _colors.primary.v100,
-        tertiary: _colors.primary.v100,
-        primaryContainer: _colors.primary.v100,
-        onPrimaryContainer: _colors.neutral.v0,
-        surface: _colors.neutral.v0,
-        onSurface: _colors.neutral.v100,
-        surfaceContainerHigh: _colors.neutral.v20,
-        error: _colors.danger.v100,
+        seedColor: colors.primary.v100,
+
+        primary: colors.primary.v100,
+
+        secondary: colors.primary.v100,
+
+        tertiary: colors.primary.v100,
+
+        primaryContainer: colors.primary.v100,
+
+        onPrimaryContainer: colors.neutral.v0,
+
+        surface: colors.neutral.v0,
+
+        onSurface: colors.neutral.v100,
+
+        surfaceContainerHigh: colors.neutral.v20,
+
+        error: colors.danger.v100,
       ),
-      tabBarTheme: TabBarThemeData(
-        splashFactory: InkRipple.splashFactory,
-        overlayColor: _colors.primary.v100.withValues(alpha: .15).msAll(),
-        indicatorColor: _colors.primary.v100,
-      ),
-      progressIndicatorTheme: ProgressIndicatorThemeData(
-        circularTrackColor: _colors.background,
-        linearTrackColor: _colors.background,
-        color: _colors.primary.v100,
-      ),
-      switchTheme: SwitchThemeData(
-        thumbColor: _colors.primary.v100.msAll(),
-        trackColor: _colors.neutral.v20.msAll(),
-      ),
-      radioTheme: RadioThemeData(fillColor: _colors.primary.v100.msAll()),
-      searchBarTheme: SearchBarThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-        ).msAll(),
-        constraints: BoxConstraints(maxHeight: 64),
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4).msAll(),
-        surfaceTintColor: _colors.neutral.v0.msAll(),
-        backgroundColor: _colors.neutral.v0.msAll(),
-      ),
-      drawerTheme: DrawerThemeData(backgroundColor: _colors.background),
-      popupMenuTheme: PopupMenuThemeData(
-        surfaceTintColor: _colors.neutral.v0,
-        color: _colors.neutral.v0,
-      ),
+
+      // =====================================================
+      // AppBar Theme
+      // =====================================================
       appBarTheme: AppBarTheme(
         elevation: 0,
-        backgroundColor: _colors.primary.v100,
+
+        centerTitle: true,
+
+        backgroundColor: colors.primary.v100,
+
         foregroundColor: lightAppColors.neutral.v0,
-        surfaceTintColor: _colors.primary.v100,
+
+        surfaceTintColor: colors.primary.v100,
+
         titleTextStyle: TextStyle(
-          fontSize: 18,
+          fontSize: AppSizes.sp18,
+
           fontWeight: FontWeight.bold,
+
           color: lightAppColors.neutral.v0,
         ),
+
+        iconTheme: IconThemeData(
+          color: lightAppColors.neutral.v0,
+
+          size: AppSizes.sp24,
+        ),
       ),
-      textTheme:
-          TextTheme(
-            displayLarge: TextStyle(color: _colors.neutral.v100),
-            displayMedium: TextStyle(color: _colors.neutral.v100),
-            displaySmall: TextStyle(color: _colors.neutral.v100),
-            headlineLarge: TextStyle(color: _colors.neutral.v100),
-            headlineMedium: TextStyle(color: _colors.neutral.v100),
-            headlineSmall: TextStyle(color: _colors.neutral.v100),
-            titleLarge: TextStyle(color: _colors.neutral.v100),
-            titleMedium: TextStyle(color: _colors.neutral.v100),
-            titleSmall: TextStyle(color: _colors.neutral.v100),
-            bodyLarge: TextStyle(color: _colors.neutral.v100),
-            bodyMedium: TextStyle(color: _colors.neutral.v100),
-            bodySmall: TextStyle(color: _colors.neutral.v100),
-            labelLarge: TextStyle(color: _colors.neutral.v100),
-            labelMedium: TextStyle(color: _colors.neutral.v100),
-            labelSmall: TextStyle(color: _colors.neutral.v100),
-          ).apply(
-            bodyColor: _colors.neutral.v100,
-            displayColor: _colors.neutral.v100,
-          ),
-      dialogTheme: DialogThemeData(
-        backgroundColor: _colors.neutral.v10,
+
+      // =====================================================
+      // Progress Indicator Theme
+      // =====================================================
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colors.primary.v100,
+
+        circularTrackColor: colors.background,
+
+        linearTrackColor: colors.background,
+      ),
+
+      // =====================================================
+      // TabBar Theme
+      // =====================================================
+      tabBarTheme: TabBarThemeData(
+        splashFactory: InkRipple.splashFactory,
+
+        indicatorColor: colors.primary.v100,
+
+        dividerColor: Colors.transparent,
+
+        overlayColor: colors.primary.v100.withValues(alpha: .15).msAll(),
+
+        labelColor: colors.primary.v100,
+
+        unselectedLabelColor: colors.neutral.v60,
+
+        labelStyle: TextStyle(
+          fontSize: AppSizes.sp14,
+
+          fontWeight: FontWeight.w600,
+        ),
+
+        unselectedLabelStyle: TextStyle(
+          fontSize: AppSizes.sp14,
+
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+
+      // =====================================================
+      // SearchBar Theme
+      // =====================================================
+      searchBarTheme: SearchBarThemeData(
+        constraints: BoxConstraints(maxHeight: AppSizes.p64),
+
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSizes.p12,
+          vertical: AppSizes.p8,
+        ).msAll(),
+
+        backgroundColor: colors.neutral.v0.msAll(),
+
+        surfaceTintColor: colors.neutral.v0.msAll(),
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r8),
+        ).msAll(),
+
+        elevation: 0.0.msAll(),
+      ),
+
+      // =====================================================
+      // Drawer Theme
+      // =====================================================
+      drawerTheme: DrawerThemeData(
+        backgroundColor: colors.background,
+
         surfaceTintColor: Colors.transparent,
       ),
 
-      elevatedButtonTheme: buildElevateButtonTheme(colors: _colors),
-      outlinedButtonTheme: buildOutlineButtonTheme(colors: _colors),
-      textButtonTheme: buildTextButtonTheme(colors: _colors),
+      // =====================================================
+      // Popup Menu Theme
+      // =====================================================
+      popupMenuTheme: PopupMenuThemeData(
+        color: colors.neutral.v0,
 
+        surfaceTintColor: colors.neutral.v0,
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r12),
+        ),
+      ),
+
+      // =====================================================
+      // Bottom Navigation Theme
+      // =====================================================
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: _colors.background,
-        selectedItemColor: _colors.primary.v100,
-        unselectedItemColor: _colors.neutral.v60,
+        backgroundColor: colors.background,
+
+        selectedItemColor: colors.primary.v100,
+
+        unselectedItemColor: colors.neutral.v60,
+
+        selectedLabelStyle: TextStyle(
+          fontSize: AppSizes.sp12,
+
+          fontWeight: FontWeight.w600,
+        ),
+
+        unselectedLabelStyle: TextStyle(
+          fontSize: AppSizes.sp12,
+
+          fontWeight: FontWeight.w500,
+        ),
+
         type: BottomNavigationBarType.fixed,
-        elevation: 8,
+
+        elevation: AppSizes.r8,
       ),
 
+      // =====================================================
+      // Input Decoration Theme
+      // =====================================================
       inputDecorationTheme: InputDecorationTheme(
-        fillColor: _colors.neutral.v10,
-        suffixIconColor: _colors.neutral.v100,
-        hintStyle: TextStyle(color: _colors.neutral.v80),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+        filled: true,
+
+        fillColor: colors.neutral.v10,
+
+        suffixIconColor: colors.neutral.v100,
+
+        hintStyle: TextStyle(
+          color: colors.neutral.v80,
+
+          fontSize: AppSizes.sp14,
+        ),
+
+        contentPadding: EdgeInsets.symmetric(
+          vertical: AppSizes.p12,
+          horizontal: AppSizes.p16,
+        ),
+
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r8),
+        ),
+
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: _colors.neutral.v60),
+          borderRadius: BorderRadius.circular(AppSizes.r8),
+
+          borderSide: BorderSide(color: colors.neutral.v60, width: AppSizes.r1),
         ),
+
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: _colors.neutral.v100),
+          borderRadius: BorderRadius.circular(AppSizes.r8),
+
+          borderSide: BorderSide(
+            color: colors.primary.v100,
+
+            width: AppSizes.r12,
+          ),
         ),
+
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: _colors.danger.v100),
+          borderRadius: BorderRadius.circular(AppSizes.r8),
+
+          borderSide: BorderSide(color: colors.danger.v100, width: AppSizes.r1),
         ),
+
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: _colors.neutral.v60),
+          borderRadius: BorderRadius.circular(AppSizes.r8),
+
+          borderSide: BorderSide(color: colors.neutral.v40, width: AppSizes.r1),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       ),
+
+      // =====================================================
+      // Dialog Theme
+      // =====================================================
+      dialogTheme: DialogThemeData(
+        backgroundColor: colors.neutral.v10,
+
+        surfaceTintColor: Colors.transparent,
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r16),
+        ),
+      ),
+
+      // =====================================================
+      // Buttons
+      // =====================================================
+      elevatedButtonTheme: buildElevateButtonTheme(colors: colors),
+
+      outlinedButtonTheme: buildOutlineButtonTheme(colors: colors),
+
+      textButtonTheme: buildTextButtonTheme(colors: colors),
+
+      // =====================================================
+      // Divider Theme
+      // =====================================================
+      dividerTheme: DividerThemeData(
+        color: colors.neutral.v20,
+
+        thickness: AppSizes.r1,
+
+        space: AppSizes.h40,
+      ),
+
+      // =====================================================
+      // Card Theme
+      // =====================================================
+      cardTheme: CardThemeData(
+        elevation: 0,
+
+        color: colors.neutral.v0,
+
+        surfaceTintColor: Colors.transparent,
+
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r12),
+        ),
+      ),
+
+      // =====================================================
+      // Text Theme
+      // =====================================================
+      textTheme: Typography.material2021().black
+          .apply(
+            bodyColor: colors.neutral.v100,
+
+            displayColor: colors.neutral.v100,
+          )
+          .copyWith(
+            bodyLarge: TextStyle(
+              fontSize: AppSizes.sp16,
+
+              fontWeight: FontWeight.w500,
+            ),
+
+            bodyMedium: TextStyle(
+              fontSize: AppSizes.sp14,
+
+              fontWeight: FontWeight.w400,
+            ),
+
+            titleLarge: TextStyle(
+              fontSize: AppSizes.sp20,
+
+              fontWeight: FontWeight.bold,
+            ),
+
+            titleMedium: TextStyle(
+              fontSize: AppSizes.sp18,
+
+              fontWeight: FontWeight.w600,
+            ),
+
+            labelLarge: TextStyle(
+              fontSize: AppSizes.sp14,
+
+              fontWeight: FontWeight.w600,
+            ),
+          ),
     );
   }
 }

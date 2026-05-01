@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:movie_clean/core/resources/app_sizes.dart';
 import 'package:movie_clean/core/theme/app_colors.dart';
 import 'package:movie_clean/core/theme/extensions/material_state_property_extension.dart';
 import 'package:movie_clean/core/theme/interfaces/app_colors_inteface.dart';
@@ -6,13 +8,24 @@ import 'package:movie_clean/core/theme/interfaces/app_colors_inteface.dart';
 TextButtonThemeData buildTextButtonTheme({required AppColorsInterface colors}) {
   return TextButtonThemeData(
     style: ButtonStyle(
-      elevation: (0.0).msAll(),
+      elevation: 0.0.msAll(),
+
+      animationDuration: kThemeAnimationDuration,
+
       foregroundColor: colors.primary.v100.materialPropertyBuilder(
         disabled: colors.neutral.v40,
       ),
-      animationDuration: kThemeAnimationDuration,
+
       overlayColor: colors.primary.v100.withValues(alpha: .1).msAll(),
-      shape: RoundedRectangleBorder().msAll(),
+
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSizes.r10),
+      ).msAll(),
+
+      padding: EdgeInsets.symmetric(
+        vertical: AppSizes.p12,
+        horizontal: AppSizes.p16,
+      ).msAll(),
     ),
   );
 }
@@ -22,16 +35,27 @@ ElevatedButtonThemeData buildElevateButtonTheme({
 }) {
   return ElevatedButtonThemeData(
     style: ButtonStyle(
-      elevation: (0.0).msAll(),
+      elevation: 0.0.msAll(),
+
+      animationDuration: kThemeAnimationDuration,
+
       backgroundColor: colors.primary.v100.materialPropertyBuilder(
         disabled: colors.neutral.v30,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16).msAll(),
+
       foregroundColor: pureColors.neutral.v0.msAll(),
-      animationDuration: kThemeAnimationDuration,
+
       overlayColor: colors.primary.v100.withValues(alpha: .1).msAll(),
+
+      padding: EdgeInsets.symmetric(
+        vertical: AppSizes.p12,
+        horizontal: AppSizes.p16,
+      ).msAll(),
+
+      minimumSize: Size(double.infinity, AppSizes.h48).msAll(),
+
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppSizes.r10),
       ).msAll(),
     ),
   );
@@ -42,15 +66,27 @@ OutlinedButtonThemeData buildOutlineButtonTheme({
 }) {
   return OutlinedButtonThemeData(
     style: ButtonStyle(
+      animationDuration: Duration.zero,
+
       backgroundColor: colors.background.materialPropertyBuilder(
         disabled: colors.neutral.v40,
       ),
-      side: BorderSide(color: colors.primary.v100, width: 1).msAll(),
+
       foregroundColor: pureColors.primary.v100.msAll(),
-      animationDuration: Duration.zero,
+
       overlayColor: colors.primary.v100.withValues(alpha: .1).msAll(),
+
+      side: BorderSide(color: colors.primary.v100, width: AppSizes.r1).msAll(),
+
+      padding: EdgeInsets.symmetric(
+        vertical: AppSizes.p12,
+        horizontal: AppSizes.p16,
+      ).msAll(),
+
+      minimumSize: Size(double.infinity, AppSizes.h48).msAll(),
+
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppSizes.r10),
       ).msAll(),
     ),
   );

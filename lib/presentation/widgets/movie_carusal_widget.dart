@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 
 class MovieCarusalWidget<T> extends StatelessWidget {
   final List<T> items;
@@ -15,17 +15,32 @@ class MovieCarusalWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      itemCount: items.length,
-      options: CarouselOptions(
-        height: height,
-        autoPlay: true,
-        enlargeCenterPage: true,
-        viewportFraction: 1.0,
+    return SizedBox(
+      width: double.infinity,
+      child: CarouselSlider.builder(
+        itemCount: items.length,
+        options: CarouselOptions(
+          height: height,
+
+          /// ✅ Full width
+          viewportFraction: 1.0,
+
+          /// ✅ Remove side gaps
+          padEnds: false,
+
+          /// ❌ Must be false for real full width
+          enlargeCenterPage: false,
+
+          autoPlay: true,
+          enableInfiniteScroll: true,
+        ),
+        itemBuilder: (context, index, realIndex) {
+          return SizedBox(
+            width: double.infinity,
+            child: itemBuilder(context, items[index], index),
+          );
+        },
       ),
-      itemBuilder: (context, index, _) {
-        return itemBuilder(context, items[index], index);
-      },
     );
   }
 }

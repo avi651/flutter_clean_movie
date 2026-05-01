@@ -33,31 +33,39 @@ class MovieStateHandler extends StatelessWidget {
 
     final movies = state.movies;
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final carouselHeight = constraints.maxHeight * 0.4;
+    final size = MediaQuery.sizeOf(context);
 
-        return Column(
-          children: [
-            /// 🔥 40% Carousel
-            SizedBox(
-              height: carouselHeight,
-              child: MovieCarusalWidget<MovieResultEntity>(
-                items: movies.take(5).toList(),
-                height: carouselHeight,
-                itemBuilder: (context, movie, index) {
-                  return MovieCarouselItem(movie: movie);
-                },
-              ),
-            ),
+    final isLandscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
 
-            /// 🔥 Remaining list
-            Expanded(
-              child: MovieListView(movies: movies, onRefresh: onRefresh),
-            ),
-          ],
-        );
-      },
+    /// Responsive carousel height
+    final carouselHeight = isLandscape ? size.height * 0.4 : size.height * 0.4;
+
+    return Column(
+      children: [
+        /// 🔥 Full-width responsive carousel
+        SizedBox(
+          width: double.infinity,
+          height: carouselHeight,
+          child: MovieCarusalWidget<MovieResultEntity>(
+            items: movies.take(5).toList(),
+            height: carouselHeight,
+            itemBuilder: (context, movie, index) {
+              return MovieCarouselItem(movie: movie);
+            },
+          ),
+        ),
+
+        /// 🔥 Remaining movie list
+        Expanded(
+          child: Column(
+            children: [
+              MovieListView(movies: movies, onRefresh: onRefresh),
+              MovieListView(movies: movies, onRefresh: onRefresh),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

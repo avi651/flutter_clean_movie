@@ -1,10 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movie_clean/presentation/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_clean/presentation/bloc/movie_bloc/movie_event.dart';
 import 'package:movie_clean/presentation/screens/movie_home_page/movie_body.dart';
-import 'package:movie_clean/presentation/widgets/movie_app_bar.dart';
 
 class MovieHomePage extends StatefulWidget {
   static const String route = "/";
@@ -27,9 +25,6 @@ class _MovieHomePageState extends State<MovieHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MovieAppBar(appBarText: "app_title".tr()),
-      body: MovieBody(bloc: bloc),
-    );
+    return Scaffold(body: MovieBody(bloc: bloc));
   }
 }

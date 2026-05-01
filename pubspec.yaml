@@ -80,6 +80,7 @@ dependencies:
   http: ^1.6.0
 
   carousel_slider: 
+  flutter_screenutil: 
 
 dev_dependencies:
   flutter_test:

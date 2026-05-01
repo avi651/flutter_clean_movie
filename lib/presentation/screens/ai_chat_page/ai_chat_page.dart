@@ -46,7 +46,7 @@ class _AIChatPageState extends State<AIChatPage> {
         children: [
           Expanded(
             child: BlocListener<AIChatCubit, AIChatState>(
-              listener: (_, __) => _scrollToBottom(),
+              listener: (_, _) => _scrollToBottom(),
               child: BlocBuilder<AIChatCubit, AIChatState>(
                 builder: (context, state) {
                   return ListView.builder(

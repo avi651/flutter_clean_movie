@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:movie_clean/app_bloc_scope.dart';
 import 'package:movie_clean/core/module/app_module.dart';
+import 'package:movie_clean/core/resources/app_screen_util.dart';
 import 'package:movie_clean/core/theme/bloc/theme_bloc.dart';
 import 'package:movie_clean/core/theme/bloc/theme_state.dart';
 import 'package:movie_clean/core/theme/theme_data/app_theme.dart';
@@ -25,27 +28,53 @@ class App extends StatelessWidget {
           .map((e) => e.toLocale())
           .toList(),
       startLocale: LanguageService.defaultLocale,
-      child: ModularApp(
-        module: AppModule(),
-        child: AppBlocScope(
-          child: BlocBuilder<ThemeBloc, ThemeState>(
-            builder: (context, themeState) {
-              return MaterialApp.router(
-                routerConfig: Modular.routerConfig,
-                debugShowCheckedModeBanner: false,
 
-                // 🔥 IMPORTANT FIX
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-                locale: context.locale,
+      child: ScreenUtilInit(
+        designSize: AppScreenUtil.designSize,
 
-                theme: AppTheme.build(brightness: Brightness.light),
-                darkTheme: AppTheme.build(brightness: Brightness.dark),
-                themeMode: themeState.selectedThemeMode,
-              );
-            },
-          ),
-        ),
+        minTextAdapt: true,
+
+        splitScreenMode: true,
+
+        useInheritedMediaQuery: true,
+
+        builder: (_, child) {
+          return ModularApp(
+            module: AppModule(),
+            child: AppBlocScope(
+              child: BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, themeState) {
+                  return MaterialApp.router(
+                    routerConfig: Modular.routerConfig,
+
+                    debugShowCheckedModeBanner: false,
+
+                    localizationsDelegates: context.localizationDelegates,
+
+                    supportedLocales: context.supportedLocales,
+
+                    locale: context.locale,
+
+                    theme: AppTheme.build(brightness: Brightness.light),
+
+                    darkTheme: AppTheme.build(brightness: Brightness.dark),
+
+                    themeMode: themeState.selectedThemeMode,
+
+                    builder: (_, widget) {
+                      return MediaQuery(
+                        data: MediaQuery.of(
+                          context,
+                        ).copyWith(textScaler: const TextScaler.linear(1.0)),
+                        child: widget!,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          );
+        },
       ),
     );
   }

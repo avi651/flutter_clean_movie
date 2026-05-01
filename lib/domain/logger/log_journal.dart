@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 class LogJournal {
   LogJournal._internal();
+
   static final LogJournal _instance = LogJournal._internal();
 
   factory LogJournal() => _instance;
@@ -27,15 +28,18 @@ class LogJournal {
     final dir = await _getOrCreateDirectory();
 
     final date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
     _file = File('${dir.path}/$date.txt');
 
     final exists = await _file.exists();
     final length = exists ? await _file.length() : 0;
+
     _isFileEmpty = length == 0;
 
     _sink = _file.openWrite(mode: FileMode.append);
 
     _streamController = StreamController<LogData>();
+
     _streamController.stream.listen(_onLogData);
   }
 
@@ -45,6 +49,7 @@ class LogJournal {
 
   Future<void> dispose() async {
     await _streamController.close();
+
     await _sink.flush();
     await _sink.close();
   }
@@ -52,17 +57,18 @@ class LogJournal {
   /// INTERNALS
 
   Future<void> _onLogData(LogData data) async {
-    String separator = _isFileEmpty ? "" : ",\n";
+    final separator = _isFileEmpty ? '' : ',\n';
 
     if (_isFileEmpty) {
       _isFileEmpty = false;
     }
 
     final formattedJson = separator + data.toFormattedJson();
+
     _sink.write(formattedJson);
   }
 
-  /// DIRECTORY HANDLING (SAFE)
+  /// DIRECTORY HANDLING
 
   Future<Directory> _getOrCreateDirectory() async {
     if (_maybeDirectory.isSome()) {
@@ -74,11 +80,14 @@ class LogJournal {
     }
 
     try {
-      // ✅ BEST PRACTICE: system-provided directory
-      final baseDir = await getExternalStorageDirectory();
+      final Directory baseDir;
 
-      if (baseDir == null) {
-        throw Exception("External storage directory not available");
+      if (Platform.isAndroid) {
+        baseDir =
+            await getExternalStorageDirectory() ??
+            await getApplicationDocumentsDirectory();
+      } else {
+        baseDir = await getApplicationDocumentsDirectory();
       }
 
       final logDir = Directory('${baseDir.path}/logs');
@@ -88,6 +97,7 @@ class LogJournal {
       }
 
       _maybeDirectory = some(logDir);
+
       _dirCompleter.complete(logDir);
 
       return logDir;
