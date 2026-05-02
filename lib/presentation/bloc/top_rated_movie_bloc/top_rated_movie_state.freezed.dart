@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'movie_state.dart';
+part of 'top_rated_movie_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'movie_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$MovieState {
+mixin _$TopRatedMovieState {
 
  List<MovieResultEntity> get movies; bool get isLoading; String? get errorMessage;
-/// Create a copy of MovieState
+/// Create a copy of TopRatedMovieState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$MovieStateCopyWith<MovieState> get copyWith => _$MovieStateCopyWithImpl<MovieState>(this as MovieState, _$identity);
+$TopRatedMovieStateCopyWith<TopRatedMovieState> get copyWith => _$TopRatedMovieStateCopyWithImpl<TopRatedMovieState>(this as TopRatedMovieState, _$identity);
 
-  /// Serializes this MovieState to a JSON map.
+  /// Serializes this TopRatedMovieState to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MovieState&&const DeepCollectionEquality().equals(other.movies, movies)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TopRatedMovieState&&const DeepCollectionEquality().equals(other.movies, movies)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'MovieState(movies: $movies, isLoading: $isLoading, errorMessage: $errorMessage)';
+  return 'TopRatedMovieState(movies: $movies, isLoading: $isLoading, errorMessage: $errorMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $MovieStateCopyWith<$Res>  {
-  factory $MovieStateCopyWith(MovieState value, $Res Function(MovieState) _then) = _$MovieStateCopyWithImpl;
+abstract mixin class $TopRatedMovieStateCopyWith<$Res>  {
+  factory $TopRatedMovieStateCopyWith(TopRatedMovieState value, $Res Function(TopRatedMovieState) _then) = _$TopRatedMovieStateCopyWithImpl;
 @useResult
 $Res call({
  List<MovieResultEntity> movies, bool isLoading, String? errorMessage
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$MovieStateCopyWithImpl<$Res>
-    implements $MovieStateCopyWith<$Res> {
-  _$MovieStateCopyWithImpl(this._self, this._then);
+class _$TopRatedMovieStateCopyWithImpl<$Res>
+    implements $TopRatedMovieStateCopyWith<$Res> {
+  _$TopRatedMovieStateCopyWithImpl(this._self, this._then);
 
-  final MovieState _self;
-  final $Res Function(MovieState) _then;
+  final TopRatedMovieState _self;
+  final $Res Function(TopRatedMovieState) _then;
 
-/// Create a copy of MovieState
+/// Create a copy of TopRatedMovieState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? movies = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
@@ -77,8 +77,8 @@ as String?,
 }
 
 
-/// Adds pattern-matching-related methods to [MovieState].
-extension MovieStatePatterns on MovieState {
+/// Adds pattern-matching-related methods to [TopRatedMovieState].
+extension TopRatedMovieStatePatterns on TopRatedMovieState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -91,10 +91,10 @@ extension MovieStatePatterns on MovieState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MovieState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TopRatedMovieState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _MovieState() when $default != null:
+case _TopRatedMovieState() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -113,10 +113,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MovieState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TopRatedMovieState value)  $default,){
 final _that = this;
 switch (_that) {
-case _MovieState():
+case _TopRatedMovieState():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -134,10 +134,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MovieState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TopRatedMovieState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _MovieState() when $default != null:
+case _TopRatedMovieState() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -157,7 +157,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<MovieResultEntity> movies,  bool isLoading,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _MovieState() when $default != null:
+case _TopRatedMovieState() when $default != null:
 return $default(_that.movies,_that.isLoading,_that.errorMessage);case _:
   return orElse();
 
@@ -178,7 +178,7 @@ return $default(_that.movies,_that.isLoading,_that.errorMessage);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<MovieResultEntity> movies,  bool isLoading,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
-case _MovieState():
+case _TopRatedMovieState():
 return $default(_that.movies,_that.isLoading,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
@@ -198,7 +198,7 @@ return $default(_that.movies,_that.isLoading,_that.errorMessage);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<MovieResultEntity> movies,  bool isLoading,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
-case _MovieState() when $default != null:
+case _TopRatedMovieState() when $default != null:
 return $default(_that.movies,_that.isLoading,_that.errorMessage);case _:
   return null;
 
@@ -210,9 +210,9 @@ return $default(_that.movies,_that.isLoading,_that.errorMessage);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _MovieState implements MovieState {
-  const _MovieState({final  List<MovieResultEntity> movies = const [], this.isLoading = false, this.errorMessage}): _movies = movies;
-  factory _MovieState.fromJson(Map<String, dynamic> json) => _$MovieStateFromJson(json);
+class _TopRatedMovieState implements TopRatedMovieState {
+  const _TopRatedMovieState({final  List<MovieResultEntity> movies = const [], this.isLoading = false, this.errorMessage}): _movies = movies;
+  factory _TopRatedMovieState.fromJson(Map<String, dynamic> json) => _$TopRatedMovieStateFromJson(json);
 
  final  List<MovieResultEntity> _movies;
 @override@JsonKey() List<MovieResultEntity> get movies {
@@ -224,20 +224,20 @@ class _MovieState implements MovieState {
 @override@JsonKey() final  bool isLoading;
 @override final  String? errorMessage;
 
-/// Create a copy of MovieState
+/// Create a copy of TopRatedMovieState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$MovieStateCopyWith<_MovieState> get copyWith => __$MovieStateCopyWithImpl<_MovieState>(this, _$identity);
+_$TopRatedMovieStateCopyWith<_TopRatedMovieState> get copyWith => __$TopRatedMovieStateCopyWithImpl<_TopRatedMovieState>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$MovieStateToJson(this, );
+  return _$TopRatedMovieStateToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MovieState&&const DeepCollectionEquality().equals(other._movies, _movies)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TopRatedMovieState&&const DeepCollectionEquality().equals(other._movies, _movies)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -246,15 +246,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'MovieState(movies: $movies, isLoading: $isLoading, errorMessage: $errorMessage)';
+  return 'TopRatedMovieState(movies: $movies, isLoading: $isLoading, errorMessage: $errorMessage)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$MovieStateCopyWith<$Res> implements $MovieStateCopyWith<$Res> {
-  factory _$MovieStateCopyWith(_MovieState value, $Res Function(_MovieState) _then) = __$MovieStateCopyWithImpl;
+abstract mixin class _$TopRatedMovieStateCopyWith<$Res> implements $TopRatedMovieStateCopyWith<$Res> {
+  factory _$TopRatedMovieStateCopyWith(_TopRatedMovieState value, $Res Function(_TopRatedMovieState) _then) = __$TopRatedMovieStateCopyWithImpl;
 @override @useResult
 $Res call({
  List<MovieResultEntity> movies, bool isLoading, String? errorMessage
@@ -265,17 +265,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$MovieStateCopyWithImpl<$Res>
-    implements _$MovieStateCopyWith<$Res> {
-  __$MovieStateCopyWithImpl(this._self, this._then);
+class __$TopRatedMovieStateCopyWithImpl<$Res>
+    implements _$TopRatedMovieStateCopyWith<$Res> {
+  __$TopRatedMovieStateCopyWithImpl(this._self, this._then);
 
-  final _MovieState _self;
-  final $Res Function(_MovieState) _then;
+  final _TopRatedMovieState _self;
+  final $Res Function(_TopRatedMovieState) _then;
 
-/// Create a copy of MovieState
+/// Create a copy of TopRatedMovieState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? movies = null,Object? isLoading = null,Object? errorMessage = freezed,}) {
-  return _then(_MovieState(
+  return _then(_TopRatedMovieState(
 movies: null == movies ? _self._movies : movies // ignore: cast_nullable_to_non_nullable
 as List<MovieResultEntity>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable

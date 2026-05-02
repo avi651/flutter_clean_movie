@@ -1,15 +1,24 @@
+// =====================================================
+// movie_tabbar.dart
+// =====================================================
+
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:movie_clean/presentation/bloc/movie_bottom_nav_cubit/movie_bottom_nav_cubit.dart';
+
 import 'package:movie_clean/presentation/screens/ai_chat_page/ai_chat_page.dart';
 import 'package:movie_clean/presentation/screens/movie_home_page/movie_home_page.dart';
 import 'package:movie_clean/presentation/screens/movie_search_page/movie_search_page.dart';
 import 'package:movie_clean/presentation/screens/movie_watchlist_page/movie_watch_list_page.dart';
 
 class MovieTabbar extends StatelessWidget {
-  static const String route = "/";
-  static const path = '/';
+  static const String route = '/';
+
+  static const String path = '/';
+
   const MovieTabbar({super.key});
 
   @override
@@ -17,38 +26,92 @@ class MovieTabbar extends StatelessWidget {
     final cubit = Modular.get<MovieBottomNavCubit>();
 
     return Scaffold(
-      /// 🔥 BODY
+      // =====================================================
+      // BODY
+      // =====================================================
       body: BlocBuilder<MovieBottomNavCubit, int>(
         bloc: cubit,
+
         builder: (context, index) {
-          return _pages[index];
+          return IndexedStack(index: index, children: _pages);
         },
       ),
 
-      /// 🔥 BOTTOM NAV
+      // =====================================================
+      // BOTTOM NAVIGATION
+      // =====================================================
       bottomNavigationBar: BlocBuilder<MovieBottomNavCubit, int>(
         bloc: cubit,
+
         builder: (context, index) {
+          final theme = Theme.of(context);
+
+          final bottomNavTheme = theme.bottomNavigationBarTheme;
+
           return BottomNavigationBar(
+            // =====================================================
+            // Navigation
+            // =====================================================
             currentIndex: index,
+
             onTap: cubit.changeTab,
 
-            /// 🔥 OPTIONAL (recommended for 4 tabs)
             type: BottomNavigationBarType.fixed,
 
+            // =====================================================
+            // Theme Colors
+            // =====================================================
+            backgroundColor: bottomNavTheme.backgroundColor,
+
+            selectedItemColor: bottomNavTheme.selectedItemColor,
+
+            unselectedItemColor: bottomNavTheme.unselectedItemColor,
+
+            // =====================================================
+            // Styles
+            // =====================================================
+            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+
+            unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500),
+
+            showUnselectedLabels: true,
+
+            elevation: 8,
+
+            // =====================================================
+            // Items
+            // =====================================================
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: "Search",
+                icon: Icon(Icons.home_outlined),
+
+                activeIcon: Icon(Icons.home),
+
+                label: 'Home',
               ),
+
               BottomNavigationBarItem(
-                icon: Icon(Icons.bookmark),
-                label: "Watchlist",
+                icon: Icon(Icons.search_outlined),
+
+                activeIcon: Icon(Icons.search),
+
+                label: 'Search',
               ),
+
               BottomNavigationBarItem(
-                icon: Icon(Icons.airline_seat_flat_angled_rounded),
-                label: "Open AI",
+                icon: Icon(Icons.bookmark_border),
+
+                activeIcon: Icon(Icons.bookmark),
+
+                label: 'Watchlist',
+              ),
+
+              BottomNavigationBarItem(
+                icon: Icon(Icons.smart_toy_outlined),
+
+                activeIcon: Icon(Icons.smart_toy),
+
+                label: 'Open AI',
               ),
             ],
           );
@@ -57,11 +120,17 @@ class MovieTabbar extends StatelessWidget {
     );
   }
 
-  /// 🔥 PAGES
+  // =====================================================
+  // Pages
+  // =====================================================
+
   static const List<Widget> _pages = [
     MovieHomePage(),
+
     MovieSearchPage(),
+
     MovieWatchListPage(),
+
     AIChatPage(),
   ];
 }

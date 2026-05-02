@@ -23,33 +23,46 @@ class MovieHorizontalContainer extends StatelessWidget {
 
     final textTheme = Theme.of(context).textTheme;
 
+    final isLandscape =
+        MediaQuery.orientationOf(context) == Orientation.landscape;
+
+    // =====================================================
+    // Responsive Card Size
+    // =====================================================
+
+    final cardWidth = isLandscape ? 80.0 : 160.0;
+
+    final cardHeight = isLandscape ? 80.0 : 240.0;
+
     return GestureDetector(
       onTap: onTap,
 
       child: Card(
-        elevation: AppSizes.r8,
+        elevation: AppSizes.r4,
 
         margin: EdgeInsets.symmetric(
-          horizontal: AppSizes.p4.w,
+          horizontal: AppSizes.p6.w,
           vertical: AppSizes.p4.h,
         ),
 
         clipBehavior: Clip.antiAlias,
 
-        shape: RoundedRectangleBorder(borderRadius: AppSizes.br16),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r16),
+        ),
 
         child: SizedBox(
-          width: 120.w,
+          width: cardWidth,
 
-          height: 120.h,
+          height: cardHeight,
 
           child: Stack(
             fit: StackFit.expand,
 
             children: [
-              // =====================================
+              // =====================================================
               // Poster Image
-              // =====================================
+              // =====================================================
               Image.network(
                 imageUrl,
 
@@ -66,9 +79,9 @@ class MovieHorizontalContainer extends StatelessWidget {
                 },
               ),
 
-              // =====================================
+              // =====================================================
               // Gradient Overlay
-              // =====================================
+              // =====================================================
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -78,22 +91,21 @@ class MovieHorizontalContainer extends StatelessWidget {
 
                     colors: [
                       Colors.transparent,
-
-                      Colors.black.withValues(alpha: .25),
+                      Colors.black.withValues(alpha: .7),
                     ],
                   ),
                 ),
               ),
 
-              // =====================================
+              // =====================================================
               // Movie Title
-              // =====================================
+              // =====================================================
               Positioned(
-                left: AppSizes.p4.w,
+                left: AppSizes.p8.w,
 
-                right: AppSizes.p4.w,
+                right: AppSizes.p8.w,
 
-                bottom: AppSizes.p4.h,
+                bottom: AppSizes.p8.h,
 
                 child: Text(
                   movie.title,
@@ -104,8 +116,8 @@ class MovieHorizontalContainer extends StatelessWidget {
 
                   textAlign: TextAlign.center,
 
-                  style: textTheme.bodySmall?.copyWith(
-                    fontSize: AppSizes.sp12.sp,
+                  style: textTheme.bodyMedium?.copyWith(
+                    fontSize: isLandscape ? AppSizes.sp12 : AppSizes.sp14,
 
                     fontWeight: FontWeight.w700,
 

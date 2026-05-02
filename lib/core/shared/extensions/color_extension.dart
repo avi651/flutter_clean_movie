@@ -1,39 +1,89 @@
+// =====================================================
+// color_extension.dart
+// =====================================================
+
 import 'package:flutter/material.dart';
+
 import 'package:movie_clean/core/theme/app_colors.dart';
 
 extension ColorExtension on Color {
+  /// =====================================================
+  /// Blend With Neutral
+  /// =====================================================
+
   Color blendColorWithNeutral(double opacity) {
-    if (isDarkTheme) {
-      return blendColorWithDark(opacity);
-    }
-    return blendColorWithWhite(opacity);
+    return AppColors.isDarkTheme
+        ? blendColorWithDark(opacity)
+        : blendColorWithWhite(opacity);
   }
+
+  /// =====================================================
+  /// Blend With White
+  /// =====================================================
 
   Color blendColorWithWhite(double opacity) {
-    opacity = opacity.clamp(0.0, 1.0);
+    final normalizedOpacity = opacity.clamp(0.0, 1.0);
 
-    final int r = (this.r * 255.0).round().clamp(0, 255);
-    final int g = (this.g * 255.0).round().clamp(0, 255);
-    final int b = (this.b * 255.0).round().clamp(0, 255);
+    final int newR = _blendChannel(
+      source: red,
+      target: 255,
+      opacity: normalizedOpacity,
+    );
 
-    final int newR = (opacity * r + (1 - opacity) * 255).round().clamp(0, 255);
-    final int newG = (opacity * g + (1 - opacity) * 255).round().clamp(0, 255);
-    final int newB = (opacity * b + (1 - opacity) * 255).round().clamp(0, 255);
+    final int newG = _blendChannel(
+      source: green,
+      target: 255,
+      opacity: normalizedOpacity,
+    );
 
-    return Color.fromRGBO(newR, newG, newB, 1.0);
+    final int newB = _blendChannel(
+      source: blue,
+      target: 255,
+      opacity: normalizedOpacity,
+    );
+
+    return Color.fromRGBO(newR, newG, newB, 1);
   }
 
+  /// =====================================================
+  /// Blend With Dark
+  /// =====================================================
+
   Color blendColorWithDark(double opacity) {
-    opacity = opacity.clamp(0.0, 1.0);
+    final normalizedOpacity = opacity.clamp(0.0, 1.0);
 
-    final int r = (this.r * 255.0).round().clamp(0, 255);
-    final int g = (this.g * 255.0).round().clamp(0, 255);
-    final int b = (this.b * 255.0).round().clamp(0, 255);
+    const darkBase = 33;
 
-    final int newR = (33 + ((r - 33) * opacity).round()).clamp(0, 255);
-    final int newG = (33 + ((g - 33) * opacity).round()).clamp(0, 255);
-    final int newB = (33 + ((b - 33) * opacity).round()).clamp(0, 255);
+    final int newR = _blendChannel(
+      source: red,
+      target: darkBase,
+      opacity: normalizedOpacity,
+    );
 
-    return Color.fromRGBO(newR, newG, newB, 1.0);
+    final int newG = _blendChannel(
+      source: green,
+      target: darkBase,
+      opacity: normalizedOpacity,
+    );
+
+    final int newB = _blendChannel(
+      source: blue,
+      target: darkBase,
+      opacity: normalizedOpacity,
+    );
+
+    return Color.fromRGBO(newR, newG, newB, 1);
+  }
+
+  /// =====================================================
+  /// Blend Helper
+  /// =====================================================
+
+  int _blendChannel({
+    required int source,
+    required int target,
+    required double opacity,
+  }) {
+    return (opacity * source + (1 - opacity) * target).round().clamp(0, 255);
   }
 }

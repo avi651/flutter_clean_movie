@@ -1,6 +1,15 @@
+// =====================================================
+// log_level.dart
+// =====================================================
+
 import 'package:ansicolor/ansicolor.dart';
 import 'package:flutter/material.dart';
+
 import 'package:movie_clean/core/theme/app_colors.dart';
+
+/// =====================================================
+/// Log Levels
+/// =====================================================
 
 enum LogLevel {
   error,
@@ -10,31 +19,64 @@ enum LogLevel {
   debug,
   verbose;
 
-  const LogLevel();
+  /// =====================================================
+  /// UI Color
+  /// =====================================================
 
-  Color get color => switch (this) {
-    LogLevel.critical || LogLevel.error => pureColors.danger.v100,
-    LogLevel.warning => pureColors.warning.v100,
-    _ => pureColors.info.v100,
-  };
+  Color get color {
+    switch (this) {
+      case LogLevel.critical:
+      case LogLevel.error:
+        return AppColors.current.danger.v100;
 
-  AnsiPen get pen => _defaultColors[this] ?? (AnsiPen()..gray());
+      case LogLevel.warning:
+        return AppColors.current.warning.v100;
+
+      case LogLevel.info:
+        return AppColors.current.info.v100;
+
+      case LogLevel.debug:
+      case LogLevel.verbose:
+        return AppColors.current.neutral.v60;
+    }
+  }
+
+  /// =====================================================
+  /// Console Pen
+  /// =====================================================
+
+  AnsiPen get pen {
+    return _defaultPens[this] ?? (AnsiPen()..white());
+  }
 }
 
-final _defaultColors = {
+/// =====================================================
+/// Default Console Pens
+/// =====================================================
+
+final Map<LogLevel, AnsiPen> _defaultPens = {
   LogLevel.critical: AnsiPen()..red(),
-  LogLevel.warning: AnsiPen()..yellow(),
-  LogLevel.verbose: AnsiPen()..gray(),
-  LogLevel.info: AnsiPen()..blue(),
-  LogLevel.debug: AnsiPen()..gray(),
+
   LogLevel.error: AnsiPen()..red(),
+
+  LogLevel.warning: AnsiPen()..yellow(),
+
+  LogLevel.info: AnsiPen()..blue(),
+
+  LogLevel.debug: AnsiPen()..gray(),
+
+  LogLevel.verbose: AnsiPen()..gray(),
 };
 
-final logLevelPriorityList = [
+/// =====================================================
+/// Priority Order
+/// =====================================================
+
+const List<LogLevel> logLevelPriorityList = [
   LogLevel.critical,
+  LogLevel.error,
   LogLevel.warning,
-  LogLevel.verbose,
   LogLevel.info,
   LogLevel.debug,
-  LogLevel.error,
+  LogLevel.verbose,
 ];

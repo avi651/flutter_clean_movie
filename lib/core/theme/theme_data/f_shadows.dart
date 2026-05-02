@@ -1,25 +1,51 @@
-import 'package:flutter/painting.dart';
+// =====================================================
+// f_shadows.dart
+// =====================================================
+
+import 'package:flutter/material.dart';
+
 import 'package:movie_clean/core/theme/app_colors.dart';
 
-class FShadows {
-  static final defaultElevationShadow = [
-    BoxShadow(
-      color: pureColors.neutral.v100.withValues(alpha: 0.2),
-      blurRadius: 2,
-      offset: const Offset(2, 2),
-    ),
-    BoxShadow(
-      color: pureColors.neutral.v100.withValues(alpha: 0.05),
-      blurRadius: 2,
-      offset: const Offset(-2, -2),
-    ),
-  ];
+abstract final class FShadows {
+  FShadows._();
 
-  static final headerElevation = [
-    BoxShadow(
-      color: pureColors.neutral.v100.withValues(alpha: 0.2),
-      blurRadius: 2,
-      offset: const Offset(2, 2),
-    ),
-  ];
+  /// =====================================================
+  /// Default Elevation Shadow
+  /// =====================================================
+
+  static List<BoxShadow> get defaultElevationShadow {
+    return [
+      BoxShadow(
+        color: AppColors.current.neutral.v100.withOpacity(0.20),
+
+        blurRadius: 2,
+
+        offset: const Offset(2, 2),
+      ),
+
+      BoxShadow(
+        color: AppColors.current.neutral.v100.withOpacity(0.05),
+
+        blurRadius: 2,
+
+        offset: const Offset(-2, -2),
+      ),
+    ];
+  }
+
+  /// =====================================================
+  /// Header Elevation Shadow
+  /// =====================================================
+
+  static List<BoxShadow> get headerElevation {
+    return [
+      BoxShadow(
+        color: AppColors.current.neutral.v100.withOpacity(0.20),
+
+        blurRadius: 2,
+
+        offset: const Offset(2, 2),
+      ),
+    ];
+  }
 }

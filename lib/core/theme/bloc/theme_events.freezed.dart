@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ThemeEvents {
 
- ThemeMode get mode; BuildContext? get context;
+ ThemeMode get mode;
 /// Create a copy of ThemeEvents
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ThemeEventsCopyWith<ThemeEvents> get copyWith => _$ThemeEventsCopyWithImpl<Them
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeEvents&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.context, context) || other.context == context));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ThemeEvents&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mode,context);
+int get hashCode => Object.hash(runtimeType,mode);
 
 @override
 String toString() {
-  return 'ThemeEvents(mode: $mode, context: $context)';
+  return 'ThemeEvents(mode: $mode)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ThemeEventsCopyWith<$Res>  {
   factory $ThemeEventsCopyWith(ThemeEvents value, $Res Function(ThemeEvents) _then) = _$ThemeEventsCopyWithImpl;
 @useResult
 $Res call({
- ThemeMode mode, BuildContext? context
+ ThemeMode mode
 });
 
 
@@ -62,11 +62,10 @@ class _$ThemeEventsCopyWithImpl<$Res>
 
 /// Create a copy of ThemeEvents
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? mode = null,Object? context = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? mode = null,}) {
   return _then(_self.copyWith(
 mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as ThemeMode,context: freezed == context ? _self.context : context // ignore: cast_nullable_to_non_nullable
-as BuildContext?,
+as ThemeMode,
   ));
 }
 
@@ -151,10 +150,10 @@ return setThemeMode(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ThemeMode mode,  BuildContext? context)?  setThemeMode,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( ThemeMode mode)?  setThemeMode,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SetThemeModeEvent() when setThemeMode != null:
-return setThemeMode(_that.mode,_that.context);case _:
+return setThemeMode(_that.mode);case _:
   return orElse();
 
 }
@@ -172,10 +171,10 @@ return setThemeMode(_that.mode,_that.context);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ThemeMode mode,  BuildContext? context)  setThemeMode,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( ThemeMode mode)  setThemeMode,}) {final _that = this;
 switch (_that) {
 case SetThemeModeEvent():
-return setThemeMode(_that.mode,_that.context);case _:
+return setThemeMode(_that.mode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +191,10 @@ return setThemeMode(_that.mode,_that.context);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ThemeMode mode,  BuildContext? context)?  setThemeMode,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( ThemeMode mode)?  setThemeMode,}) {final _that = this;
 switch (_that) {
 case SetThemeModeEvent() when setThemeMode != null:
-return setThemeMode(_that.mode,_that.context);case _:
+return setThemeMode(_that.mode);case _:
   return null;
 
 }
@@ -207,11 +206,10 @@ return setThemeMode(_that.mode,_that.context);case _:
 
 
 class SetThemeModeEvent implements ThemeEvents {
-  const SetThemeModeEvent({required this.mode, this.context});
+  const SetThemeModeEvent({required this.mode});
   
 
 @override final  ThemeMode mode;
-@override final  BuildContext? context;
 
 /// Create a copy of ThemeEvents
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +221,16 @@ $SetThemeModeEventCopyWith<SetThemeModeEvent> get copyWith => _$SetThemeModeEven
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetThemeModeEvent&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.context, context) || other.context == context));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SetThemeModeEvent&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mode,context);
+int get hashCode => Object.hash(runtimeType,mode);
 
 @override
 String toString() {
-  return 'ThemeEvents.setThemeMode(mode: $mode, context: $context)';
+  return 'ThemeEvents.setThemeMode(mode: $mode)';
 }
 
 
@@ -243,7 +241,7 @@ abstract mixin class $SetThemeModeEventCopyWith<$Res> implements $ThemeEventsCop
   factory $SetThemeModeEventCopyWith(SetThemeModeEvent value, $Res Function(SetThemeModeEvent) _then) = _$SetThemeModeEventCopyWithImpl;
 @override @useResult
 $Res call({
- ThemeMode mode, BuildContext? context
+ ThemeMode mode
 });
 
 
@@ -260,11 +258,10 @@ class _$SetThemeModeEventCopyWithImpl<$Res>
 
 /// Create a copy of ThemeEvents
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? mode = null,Object? context = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? mode = null,}) {
   return _then(SetThemeModeEvent(
 mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as ThemeMode,context: freezed == context ? _self.context : context // ignore: cast_nullable_to_non_nullable
-as BuildContext?,
+as ThemeMode,
   ));
 }
 

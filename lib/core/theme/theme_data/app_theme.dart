@@ -1,3 +1,7 @@
+// =====================================================
+// app_theme.dart
+// =====================================================
+
 import 'package:flutter/material.dart';
 
 import 'package:movie_clean/core/resources/app_sizes.dart';
@@ -5,88 +9,84 @@ import 'package:movie_clean/core/theme/app_colors.dart';
 import 'package:movie_clean/core/theme/extensions/material_state_property_extension.dart';
 import 'package:movie_clean/core/theme/theme_data/button_theme.dart';
 
-abstract class AppTheme {
+abstract final class AppTheme {
   static ThemeData build({required Brightness brightness}) {
-    final colors = switch (brightness) {
-      Brightness.dark => darkAppColors,
-      _ => lightAppColors,
-    };
+    final colors = brightness == Brightness.dark
+        ? darkAppColors
+        : lightAppColors;
+
+    final baseTextTheme = brightness == Brightness.dark
+        ? Typography.material2021().white
+        : Typography.material2021().black;
 
     return ThemeData(
       useMaterial3: true,
 
-      // =====================================================
-      // Scaffold
-      // =====================================================
+      brightness: brightness,
+
       scaffoldBackgroundColor: colors.background,
 
       // =====================================================
       // Color Scheme
       // =====================================================
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: colors.primary.v100,
+      colorScheme: ColorScheme(
+        brightness: brightness,
 
         primary: colors.primary.v100,
 
-        secondary: colors.primary.v100,
+        onPrimary: colors.neutral.v0,
 
-        tertiary: colors.primary.v100,
+        secondary: colors.primary.v80,
 
-        primaryContainer: colors.primary.v100,
-
-        onPrimaryContainer: colors.neutral.v0,
-
-        surface: colors.neutral.v0,
-
-        onSurface: colors.neutral.v100,
-
-        surfaceContainerHigh: colors.neutral.v20,
+        onSecondary: colors.neutral.v0,
 
         error: colors.danger.v100,
+
+        onError: colors.neutral.v0,
+
+        surface: colors.background,
+
+        onSurface: colors.neutral.v100,
       ),
 
       // =====================================================
-      // AppBar Theme
+      // AppBar
       // =====================================================
       appBarTheme: AppBarTheme(
         elevation: 0,
-
         centerTitle: true,
 
         backgroundColor: colors.primary.v100,
 
-        foregroundColor: lightAppColors.neutral.v0,
+        foregroundColor: colors.neutral.v0,
 
-        surfaceTintColor: colors.primary.v100,
+        surfaceTintColor: Colors.transparent,
 
         titleTextStyle: TextStyle(
           fontSize: AppSizes.sp18,
-
-          fontWeight: FontWeight.bold,
-
-          color: lightAppColors.neutral.v0,
+          fontWeight: FontWeight.w700,
+          color: colors.neutral.v0,
         ),
 
-        iconTheme: IconThemeData(
-          color: lightAppColors.neutral.v0,
-
-          size: AppSizes.sp24,
-        ),
+        iconTheme: IconThemeData(color: colors.neutral.v0, size: AppSizes.sp24),
       ),
 
       // =====================================================
-      // Progress Indicator Theme
+      // Icon Theme
+      // =====================================================
+      iconTheme: IconThemeData(color: colors.neutral.v100, size: AppSizes.sp24),
+
+      // =====================================================
+      // Progress Indicator
       // =====================================================
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: colors.primary.v100,
-
-        circularTrackColor: colors.background,
-
-        linearTrackColor: colors.background,
+        circularTrackColor: colors.neutral.v20,
+        linearTrackColor: colors.neutral.v20,
       ),
 
       // =====================================================
-      // TabBar Theme
+      // TabBar
       // =====================================================
       tabBarTheme: TabBarThemeData(
         splashFactory: InkRipple.splashFactory,
@@ -95,71 +95,32 @@ abstract class AppTheme {
 
         dividerColor: Colors.transparent,
 
-        overlayColor: colors.primary.v100.withValues(alpha: .15).msAll(),
+        overlayColor: colors.primary.v100.withValues(alpha: 0.15).msAll(),
 
         labelColor: colors.primary.v100,
 
         unselectedLabelColor: colors.neutral.v60,
-
-        labelStyle: TextStyle(
-          fontSize: AppSizes.sp14,
-
-          fontWeight: FontWeight.w600,
-        ),
-
-        unselectedLabelStyle: TextStyle(
-          fontSize: AppSizes.sp14,
-
-          fontWeight: FontWeight.w500,
-        ),
       ),
 
       // =====================================================
-      // SearchBar Theme
+      // Search Bar
       // =====================================================
       searchBarTheme: SearchBarThemeData(
         constraints: BoxConstraints(maxHeight: AppSizes.p64),
 
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSizes.p12,
-          vertical: AppSizes.p8,
-        ).msAll(),
-
-        backgroundColor: colors.neutral.v0.msAll(),
-
-        surfaceTintColor: colors.neutral.v0.msAll(),
-
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r8),
-        ).msAll(),
-
-        elevation: 0.0.msAll(),
-      ),
-
-      // =====================================================
-      // Drawer Theme
-      // =====================================================
-      drawerTheme: DrawerThemeData(
-        backgroundColor: colors.background,
-
-        surfaceTintColor: Colors.transparent,
-      ),
-
-      // =====================================================
-      // Popup Menu Theme
-      // =====================================================
-      popupMenuTheme: PopupMenuThemeData(
-        color: colors.neutral.v0,
-
-        surfaceTintColor: colors.neutral.v0,
-
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r12),
+        padding: WidgetStatePropertyAll(
+          EdgeInsets.symmetric(horizontal: AppSizes.p12, vertical: AppSizes.p8),
         ),
+
+        backgroundColor: WidgetStatePropertyAll(colors.neutral.v10),
+
+        surfaceTintColor: WidgetStatePropertyAll(Colors.transparent),
+
+        elevation: const WidgetStatePropertyAll(0),
       ),
 
       // =====================================================
-      // Bottom Navigation Theme
+      // Bottom Navigation
       // =====================================================
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: colors.background,
@@ -168,25 +129,11 @@ abstract class AppTheme {
 
         unselectedItemColor: colors.neutral.v60,
 
-        selectedLabelStyle: TextStyle(
-          fontSize: AppSizes.sp12,
-
-          fontWeight: FontWeight.w600,
-        ),
-
-        unselectedLabelStyle: TextStyle(
-          fontSize: AppSizes.sp12,
-
-          fontWeight: FontWeight.w500,
-        ),
-
         type: BottomNavigationBarType.fixed,
-
-        elevation: AppSizes.r8,
       ),
 
       // =====================================================
-      // Input Decoration Theme
+      // Input Decoration
       // =====================================================
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -196,8 +143,7 @@ abstract class AppTheme {
         suffixIconColor: colors.neutral.v100,
 
         hintStyle: TextStyle(
-          color: colors.neutral.v80,
-
+          color: colors.neutral.v60,
           fontSize: AppSizes.sp14,
         ),
 
@@ -213,43 +159,23 @@ abstract class AppTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r8),
 
-          borderSide: BorderSide(color: colors.neutral.v60, width: AppSizes.r1),
+          borderSide: BorderSide(color: colors.neutral.v40, width: 1),
         ),
 
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppSizes.r8),
 
-          borderSide: BorderSide(
-            color: colors.primary.v100,
-
-            width: AppSizes.r12,
-          ),
-        ),
-
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r8),
-
-          borderSide: BorderSide(color: colors.danger.v100, width: AppSizes.r1),
-        ),
-
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r8),
-
-          borderSide: BorderSide(color: colors.neutral.v40, width: AppSizes.r1),
+          borderSide: BorderSide(color: colors.primary.v100, width: 1.5),
         ),
       ),
 
       // =====================================================
-      // Dialog Theme
+      // Dialog
       // =====================================================
       dialogTheme: DialogThemeData(
         backgroundColor: colors.neutral.v10,
 
         surfaceTintColor: Colors.transparent,
-
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSizes.r16),
-        ),
       ),
 
       // =====================================================
@@ -262,26 +188,17 @@ abstract class AppTheme {
       textButtonTheme: buildTextButtonTheme(colors: colors),
 
       // =====================================================
-      // Divider Theme
+      // Divider
       // =====================================================
-      dividerTheme: DividerThemeData(
-        color: colors.neutral.v20,
-
-        thickness: AppSizes.r1,
-
-        space: AppSizes.h40,
-      ),
+      dividerTheme: DividerThemeData(color: colors.neutral.v20, thickness: 1),
 
       // =====================================================
-      // Card Theme
+      // Card
       // =====================================================
       cardTheme: CardThemeData(
         elevation: 0,
-
-        color: colors.neutral.v0,
-
+        color: colors.neutral.v10,
         surfaceTintColor: Colors.transparent,
-
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.r12),
         ),
@@ -290,43 +207,10 @@ abstract class AppTheme {
       // =====================================================
       // Text Theme
       // =====================================================
-      textTheme: Typography.material2021().black
-          .apply(
-            bodyColor: colors.neutral.v100,
-
-            displayColor: colors.neutral.v100,
-          )
-          .copyWith(
-            bodyLarge: TextStyle(
-              fontSize: AppSizes.sp16,
-
-              fontWeight: FontWeight.w500,
-            ),
-
-            bodyMedium: TextStyle(
-              fontSize: AppSizes.sp14,
-
-              fontWeight: FontWeight.w400,
-            ),
-
-            titleLarge: TextStyle(
-              fontSize: AppSizes.sp20,
-
-              fontWeight: FontWeight.bold,
-            ),
-
-            titleMedium: TextStyle(
-              fontSize: AppSizes.sp18,
-
-              fontWeight: FontWeight.w600,
-            ),
-
-            labelLarge: TextStyle(
-              fontSize: AppSizes.sp14,
-
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+      textTheme: baseTextTheme.apply(
+        bodyColor: colors.neutral.v100,
+        displayColor: colors.neutral.v100,
+      ),
     );
   }
 }

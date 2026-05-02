@@ -22,9 +22,11 @@ import 'package:movie_clean/domain/logger/logger_service.dart';
 import 'package:movie_clean/domain/usecases/ai/send_message_usecase.dart';
 import 'package:movie_clean/presentation/ai_chat_cubit/ai_chat_cubit.dart';
 import 'package:movie_clean/presentation/bloc/internet_status_cubit/internet_status_cubit.dart';
-import 'package:movie_clean/presentation/bloc/movie_bloc/movie_bloc.dart';
 import 'package:movie_clean/presentation/bloc/movie_bottom_nav_cubit/movie_bottom_nav_cubit.dart';
 import 'package:movie_clean/core/services/env.dart';
+import 'package:movie_clean/presentation/bloc/popular_movie_cubit/popular_movie_cubit.dart';
+import 'package:movie_clean/presentation/bloc/search_movie_cubit/search_movie_cubit.dart';
+import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_movie_bloc.dart';
 import 'package:movie_clean/presentation/screens/ai_chat_page/ai_chat_page.dart';
 import 'package:movie_clean/presentation/screens/language_page/language_page.dart';
 import 'package:movie_clean/presentation/screens/movie_tabbar/movie_tabbar.dart';
@@ -109,11 +111,19 @@ class AppModule extends Module {
 
     i.addBlocSingleton<MovieBottomNavCubit>(() => MovieBottomNavCubit());
 
-    i.addBlocSingleton<MovieBloc>(
-      () => MovieBloc(
+    i.addBlocSingleton<TopRatedMovieBloc>(
+      () => TopRatedMovieBloc(
         repository: i.get<IMovieRepository>(),
         logger: i.get<ILoggerService>(),
       ),
+    );
+
+    i.addBlocSingleton<PopularMovieCubit>(
+      () => PopularMovieCubit(repository: i.get<IMovieRepository>()),
+    );
+
+    i.addBlocSingleton<SearchMovieCubit>(
+      () => SearchMovieCubit(repository: i.get<IMovieRepository>()),
     );
 
     i.addBlocSingleton<InternetStatusCubit>(() => InternetStatusCubit());

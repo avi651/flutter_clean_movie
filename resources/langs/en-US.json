@@ -1,5 +1,7 @@
 {
     "app_title": "Movie",
     "app_version": "App Version",
-    "app_watchlist": "Watchlist"
+    "app_watchlist": "Watchlist",
+    "see_all": "See All",
+    "popular_movies": "Popular Movies"
 }

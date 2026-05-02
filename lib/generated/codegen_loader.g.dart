@@ -17,12 +17,16 @@ class CodegenLoader extends AssetLoader{
   static const Map<String,dynamic> _pl_PL = {
   "app_title": "Film",
   "app_version": "Wersja aplikacji",
-  "app_watchlist": "Lista obserwowanych"
+  "app_watchlist": "Lista obserwowanych",
+  "see_all": "Zobacz wszystko",
+  "popular_movies": "Popularne filmy"
 };
 static const Map<String,dynamic> _en_US = {
   "app_title": "Movie",
   "app_version": "App Version",
-  "app_watchlist": "Watchlist"
+  "app_watchlist": "Watchlist",
+  "see_all": "See All",
+  "popular_movies": "Popular Movies"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"pl_PL": _pl_PL, "en_US": _en_US};
 }

@@ -209,10 +209,10 @@ return $default(_that.selectedThemeMode);case _:
 @JsonSerializable()
 
 class _ThemeState extends ThemeState {
-  const _ThemeState({required this.selectedThemeMode}): super._();
+  const _ThemeState({this.selectedThemeMode = ThemeMode.system}): super._();
   factory _ThemeState.fromJson(Map<String, dynamic> json) => _$ThemeStateFromJson(json);
 
-@override final  ThemeMode selectedThemeMode;
+@override@JsonKey() final  ThemeMode selectedThemeMode;
 
 /// Create a copy of ThemeState
 /// with the given fields replaced by the non-null parameter values.

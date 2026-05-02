@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'movie_event.dart';
+part of 'top_rated_movie_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'movie_event.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MovieEvent {
+mixin _$TopRatedMovieEvent {
 
 
 
@@ -20,7 +20,7 @@ mixin _$MovieEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MovieEvent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TopRatedMovieEvent);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MovieEvent()';
+  return 'TopRatedMovieEvent()';
 }
 
 
 }
 
 /// @nodoc
-class $MovieEventCopyWith<$Res>  {
-$MovieEventCopyWith(MovieEvent _, $Res Function(MovieEvent) __);
+class $TopRatedMovieEventCopyWith<$Res>  {
+$TopRatedMovieEventCopyWith(TopRatedMovieEvent _, $Res Function(TopRatedMovieEvent) __);
 }
 
 
-/// Adds pattern-matching-related methods to [MovieEvent].
-extension MovieEventPatterns on MovieEvent {
+/// Adds pattern-matching-related methods to [TopRatedMovieEvent].
+extension TopRatedMovieEventPatterns on TopRatedMovieEvent {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -186,7 +186,7 @@ return clear();case _:
 /// @nodoc
 
 
-class FetchMoviesEvent implements MovieEvent {
+class FetchMoviesEvent implements TopRatedMovieEvent {
   const FetchMoviesEvent();
   
 
@@ -206,7 +206,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MovieEvent.fetch()';
+  return 'TopRatedMovieEvent.fetch()';
 }
 
 
@@ -218,7 +218,7 @@ String toString() {
 /// @nodoc
 
 
-class RefreshMoviesEvent implements MovieEvent {
+class RefreshMoviesEvent implements TopRatedMovieEvent {
   const RefreshMoviesEvent();
   
 
@@ -238,7 +238,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MovieEvent.refresh()';
+  return 'TopRatedMovieEvent.refresh()';
 }
 
 
@@ -250,7 +250,7 @@ String toString() {
 /// @nodoc
 
 
-class ClearMoviesEvent implements MovieEvent {
+class ClearMoviesEvent implements TopRatedMovieEvent {
   const ClearMoviesEvent();
   
 
@@ -270,7 +270,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'MovieEvent.clear()';
+  return 'TopRatedMovieEvent.clear()';
 }
 
 
