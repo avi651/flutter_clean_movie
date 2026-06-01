@@ -1,7 +1,47 @@
 import 'package:flutter/material.dart';
 
-class AppSizes {
+final class AppSizes {
   AppSizes._();
+
+  // =========================
+  // Screen Helpers
+  // =========================
+
+  static Size screenSize(BuildContext context) => MediaQuery.sizeOf(context);
+
+  static double screenWidth(BuildContext context) =>
+      MediaQuery.sizeOf(context).width;
+
+  static double screenHeight(BuildContext context) =>
+      MediaQuery.sizeOf(context).height;
+
+  static double widthPercent(BuildContext context, double percent) =>
+      screenWidth(context) * (percent / 100);
+
+  static double heightPercent(BuildContext context, double percent) =>
+      screenHeight(context) * (percent / 100);
+
+  static bool isMobile(BuildContext context) => screenWidth(context) < 600;
+
+  static bool isTablet(BuildContext context) =>
+      screenWidth(context) >= 600 && screenWidth(context) < 1024;
+
+  static bool isDesktop(BuildContext context) => screenWidth(context) >= 1024;
+
+  static bool isPortrait(BuildContext context) =>
+      MediaQuery.orientationOf(context) == Orientation.portrait;
+
+  static bool isLandscape(BuildContext context) =>
+      MediaQuery.orientationOf(context) == Orientation.landscape;
+
+  static EdgeInsets safePadding(BuildContext context) =>
+      MediaQuery.paddingOf(context);
+
+  static EdgeInsets viewInsets(BuildContext context) =>
+      MediaQuery.viewInsetsOf(context);
+
+  static bool isKeyboardVisible(BuildContext context) =>
+      MediaQuery.viewInsetsOf(context).bottom > 0;
 
   // =========================
   // Padding & Margin
@@ -39,7 +79,7 @@ class AppSizes {
   static const double r50 = 50;
 
   // =========================
-  // Corner Radius
+  // Border Radius
   // =========================
 
   static const BorderRadius br4 = BorderRadius.all(Radius.circular(r4));
@@ -116,6 +156,12 @@ class AppSizes {
   static const double w200 = 200;
   static const double w240 = 240;
   static const double w300 = 300;
+
+  // =========================
+  // Infinity
+  // =========================
+
+  static const double infinity = double.infinity;
 
   // =========================
   // Elevation

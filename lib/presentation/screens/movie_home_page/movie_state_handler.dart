@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:movie_clean/domain/entities/movie_result_entity.dart/movie_result_entity.dart';
 import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_movie_state.dart';
+import 'package:movie_clean/presentation/screens/movie_detail_page/movie_detail_page.dart';
 import 'package:movie_clean/presentation/screens/movie_home_page/movie_carausal_item.dart';
 import 'package:movie_clean/presentation/screens/movie_home_page/movie_list_view.dart';
 import 'package:movie_clean/presentation/widgets/app_loader.dart';
@@ -92,7 +94,9 @@ class MovieStateHandler extends StatelessWidget {
                 SectionHeader(
                   title: "popular_movies".tr(),
                   iconTitle: "see_all".tr(),
-                  onSeeAllTap: () {},
+                  onSeeAllTap: () {
+                    Modular.to.pushNamed(MovieDetailPage.path);
+                  },
                 ),
 
                 // =====================================================

@@ -42,7 +42,7 @@
       ]
     },
     {
-      "name": "Flutter Production",
+      "name": "Flutter Production (Release)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release",
@@ -52,7 +52,7 @@
         "--dart-define=BASE_URL=https://api.themoviedb.org/3/",
         "--dart-define=API_KEY=3d1e168270fc970e38b8eaeb9ed5c253",
         "--dart-define=OPEN_API_KEY=",
-        "--dart-define=feature_flags=mock,no_log_jornal,show_logs,no_proxy"
+        "--dart-define=feature_flags=no_log_journal,no_proxy"
       ]
     }
   ]

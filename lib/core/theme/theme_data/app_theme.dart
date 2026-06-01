@@ -33,19 +33,17 @@ abstract final class AppTheme {
         brightness: brightness,
 
         primary: colors.primary.v100,
-
         onPrimary: colors.neutral.v0,
 
         secondary: colors.primary.v80,
-
         onSecondary: colors.neutral.v0,
 
         error: colors.danger.v100,
-
         onError: colors.neutral.v0,
 
         surface: colors.background,
 
+        // IMPORTANT
         onSurface: colors.neutral.v100,
       ),
 
@@ -56,19 +54,22 @@ abstract final class AppTheme {
         elevation: 0,
         centerTitle: true,
 
-        backgroundColor: colors.primary.v100,
+        backgroundColor: colors.primary.v20,
 
-        foregroundColor: colors.neutral.v0,
+        foregroundColor: colors.neutral.v20,
 
         surfaceTintColor: Colors.transparent,
 
         titleTextStyle: TextStyle(
           fontSize: AppSizes.sp18,
           fontWeight: FontWeight.w700,
-          color: colors.neutral.v0,
+          color: colors.neutral.v20,
         ),
 
-        iconTheme: IconThemeData(color: colors.neutral.v0, size: AppSizes.sp24),
+        iconTheme: IconThemeData(
+          color: colors.neutral.v20,
+          size: AppSizes.sp24,
+        ),
       ),
 
       // =====================================================

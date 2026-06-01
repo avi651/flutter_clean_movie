@@ -29,6 +29,7 @@ import 'package:movie_clean/presentation/bloc/search_movie_cubit/search_movie_cu
 import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_movie_bloc.dart';
 import 'package:movie_clean/presentation/screens/ai_chat_page/ai_chat_page.dart';
 import 'package:movie_clean/presentation/screens/language_page/language_page.dart';
+import 'package:movie_clean/presentation/screens/movie_detail_page/movie_detail_page.dart';
 import 'package:movie_clean/presentation/screens/movie_tabbar/movie_tabbar.dart';
 import 'package:movie_clean/presentation/widgets/logs_page.dart';
 
@@ -135,6 +136,7 @@ class AppModule extends Module {
     r.child(MovieTabbar.route, child: (_) => const MovieTabbar());
     r.child(LogPage.path, child: (_) => const LogPage());
     r.child(LanguagePage.path, child: (_) => const LanguagePage());
+    r.child(MovieDetailPage.path, child: (_) => const MovieDetailPage());
     r.child('/ai-chat', child: (_) => const AIChatPage());
   }
 }
