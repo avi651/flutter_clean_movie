@@ -7,6 +7,7 @@ import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_mov
 import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_movie_event.dart';
 import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_movie_state.dart';
 import 'package:movie_clean/presentation/screens/movie_detail_page/movie_detail_list_view_container.dart';
+import 'package:movie_clean/presentation/screens/movie_detail_page/movie_detail_view.dart';
 
 class MovieDetailPage extends StatelessWidget {
   static const String path = '/movie-detail';
@@ -38,6 +39,12 @@ class MovieDetailPage extends StatelessWidget {
                 final movie = state.movies[index];
 
                 return MovieDetailListViewContainer(
+                  onTap: () {
+                    Modular.to.pushNamed(
+                      MovieDetailView.path,
+                      arguments: state.movies[index],
+                    );
+                  },
                   movie: state.movies[index],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

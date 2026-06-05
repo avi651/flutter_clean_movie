@@ -20,9 +20,6 @@ class MovieDetailListViewContainer extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
-    final isLandscape =
-        MediaQuery.orientationOf(context) == Orientation.landscape;
-
     return SizedBox(
       height: AppSizes.h200,
       width: double.infinity,

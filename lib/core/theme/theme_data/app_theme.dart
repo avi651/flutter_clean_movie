@@ -54,7 +54,7 @@ abstract final class AppTheme {
         elevation: 0,
         centerTitle: true,
 
-        backgroundColor: colors.primary.v20,
+        backgroundColor: colors.primary.v100,
 
         foregroundColor: colors.neutral.v20,
 
@@ -67,7 +67,7 @@ abstract final class AppTheme {
         ),
 
         iconTheme: IconThemeData(
-          color: colors.neutral.v20,
+          color: colors.neutral.v100,
           size: AppSizes.sp24,
         ),
       ),

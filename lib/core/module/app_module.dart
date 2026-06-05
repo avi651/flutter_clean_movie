@@ -11,6 +11,7 @@ import 'package:movie_clean/data/local/i_language_repository.dart';
 import 'package:movie_clean/data/local/language_repository.dart';
 import 'package:movie_clean/data/repositories/movie_repository.dart';
 import 'package:movie_clean/data/repositories/mock_movie_repository.dart';
+import 'package:movie_clean/domain/entities/movie_result_entity.dart/movie_result_entity.dart';
 import 'package:movie_clean/domain/i_ai_repository/i_ai_repository.dart';
 import 'package:movie_clean/domain/i_movie_repository/i_movie_repository.dart';
 import 'package:movie_clean/core/network_info/network_info.dart';
@@ -30,6 +31,7 @@ import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_mov
 import 'package:movie_clean/presentation/screens/ai_chat_page/ai_chat_page.dart';
 import 'package:movie_clean/presentation/screens/language_page/language_page.dart';
 import 'package:movie_clean/presentation/screens/movie_detail_page/movie_detail_page.dart';
+import 'package:movie_clean/presentation/screens/movie_detail_page/movie_detail_view.dart';
 import 'package:movie_clean/presentation/screens/movie_tabbar/movie_tabbar.dart';
 import 'package:movie_clean/presentation/widgets/logs_page.dart';
 
@@ -137,6 +139,11 @@ class AppModule extends Module {
     r.child(LogPage.path, child: (_) => const LogPage());
     r.child(LanguagePage.path, child: (_) => const LanguagePage());
     r.child(MovieDetailPage.path, child: (_) => const MovieDetailPage());
+    r.child(
+      MovieDetailView.path,
+      child: (_) =>
+          MovieDetailView(movie: Modular.args.data as MovieResultEntity),
+    );
     r.child('/ai-chat', child: (_) => const AIChatPage());
   }
 }
