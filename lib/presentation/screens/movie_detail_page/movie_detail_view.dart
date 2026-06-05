@@ -16,30 +16,32 @@ class MovieDetailView extends StatelessWidget {
     return Scaffold(
       body: FColorBuilder(
         builder: (context, colors) {
-          return Column(
-            children: [
-              CustomScrollView(
-                slivers: [
-                  MovieStickyHeader(
-                    imageUrl: imageUrl,
-                    title: movie.title,
-                    // movieReleaseDate: movie.releaseDate.toYear(),
-                    // rating: movie.voteAverage.toString(),
-                    // voters: movie.voteCount.toCompactString(),
-                  ),
-                ],
-              ),
-              Text(
-                movie.releaseDate.toYear(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w100,
-                  fontSize: 16,
-                  color: colors.neutral.v100,
+          return Expanded(
+            child: Column(
+              children: [
+                CustomScrollView(
+                  slivers: [
+                    MovieStickyHeader(
+                      imageUrl: imageUrl,
+                      title: movie.title,
+                      // movieReleaseDate: movie.releaseDate.toYear(),
+                      // rating: movie.voteAverage.toString(),
+                      // voters: movie.voteCount.toCompactString(),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                Text(
+                  movie.releaseDate.toYear(),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w100,
+                    fontSize: 16,
+                    color: colors.neutral.v100,
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
