@@ -1,82 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:movie_clean/presentation/widgets/f_color_builder.dart';
 
 class MovieStickyHeader extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+
   const MovieStickyHeader({
     super.key,
     required this.imageUrl,
     required this.title,
   });
 
-  final String imageUrl;
-  final String title;
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return FColorBuilder(
-      builder: (context, colors) {
-        return SliverAppBar(
-          pinned: true,
-          stretch: true,
-          expandedHeight: 450,
-          backgroundColor: colorScheme.surface,
 
-          leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back_ios, color: colors.primary.v100),
-          ),
+    return SliverAppBar(
+      pinned: true,
+      expandedHeight: 450,
+      stretch: true,
+      backgroundColor: colorScheme.surface,
 
-          actions: [
-            IconButton(
+      leading: CircleAvatar(
+        backgroundColor: Colors.black26,
+        child: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.arrow_back_ios_new, color: colorScheme.onSurface),
+        ),
+      ),
+
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: CircleAvatar(
+            backgroundColor: Colors.black26,
+            child: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.bookmark_border, color: colors.primary.v100),
+              icon: Icon(Icons.bookmark_border, color: colorScheme.onSurface),
             ),
-          ],
+          ),
+        ),
+      ],
 
-          flexibleSpace: FlexibleSpaceBar(
-            titlePadding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              bottom: 16,
+      flexibleSpace: FlexibleSpaceBar(
+        collapseMode: CollapseMode.parallax,
+
+        title: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis),
+
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            Hero(
+              tag: title,
+              child: Image.network(imageUrl, fit: BoxFit.cover),
             ),
-            collapseMode: CollapseMode.parallax,
 
-            title: Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: colors.primary.v100,
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    colorScheme.surface.withOpacity(.2),
+                    colorScheme.surface.withOpacity(.7),
+                    colorScheme.surface,
+                  ],
+                ),
               ),
             ),
 
-            background: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.network(imageUrl, fit: BoxFit.cover),
-
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        colorScheme.surface.withOpacity(0.2),
-                        colorScheme.surface.withOpacity(0.7),
-                        colorScheme.surface,
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+            Positioned(
+              bottom: 80,
+              right: 24,
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: const Icon(Icons.play_arrow),
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

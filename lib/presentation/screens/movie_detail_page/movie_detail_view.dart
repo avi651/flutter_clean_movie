@@ -1,49 +1,132 @@
 import 'package:flutter/material.dart';
-import 'package:movie_clean/core/shared/extensions/num_formatter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:movie_clean/core/shared/extensions/time_to_year_extension.dart';
 import 'package:movie_clean/domain/entities/movie_result_entity.dart/movie_result_entity.dart';
-import 'package:movie_clean/presentation/widgets/f_color_builder.dart';
+
+import 'package:movie_clean/presentation/bloc/cast_movie_cubit/cast_movie_cubit.dart';
+import 'package:movie_clean/presentation/screens/movie_detail_page/movie_cast_section.dart';
 import 'package:movie_clean/presentation/widgets/movie_sticky_header.dart';
 
-class MovieDetailView extends StatelessWidget {
+class MovieDetailView extends StatefulWidget {
   static const String path = '/movie-detail-view';
+
   final MovieResultEntity movie;
+
   const MovieDetailView({super.key, required this.movie});
 
   @override
+  State<MovieDetailView> createState() => _MovieDetailViewState();
+}
+
+class _MovieDetailViewState extends State<MovieDetailView> {
+  late final CastMovieCubit _castCubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _castCubit = Modular.get<CastMovieCubit>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _castCubit.fetch(movieID: widget.movie.id);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final imageUrl = "https://image.tmdb.org/t/p/w500${movie.posterPath}";
+    final imageUrl =
+        'https://image.tmdb.org/t/p/w780${widget.movie.backdropPath}';
+
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      body: FColorBuilder(
-        builder: (context, colors) {
-          return Expanded(
-            child: Column(
-              children: [
-                CustomScrollView(
-                  slivers: [
-                    MovieStickyHeader(
-                      imageUrl: imageUrl,
-                      title: movie.title,
-                      // movieReleaseDate: movie.releaseDate.toYear(),
-                      // rating: movie.voteAverage.toString(),
-                      // voters: movie.voteCount.toCompactString(),
-                    ),
-                  ],
-                ),
-                Text(
-                  movie.releaseDate.toYear(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w100,
-                    fontSize: 16,
-                    color: colors.neutral.v100,
+      backgroundColor: colorScheme.surface,
+      body: CustomScrollView(
+        slivers: [
+          MovieStickyHeader(imageUrl: imageUrl, title: widget.movie.title),
+
+          SliverToBoxAdapter(
+            child: Transform.translate(
+              offset: const Offset(0, -30),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(32),
                   ),
                 ),
-              ],
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 20),
+
+                      Text(
+                        widget.movie.title,
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      Row(
+                        children: [
+                          Text(widget.movie.releaseDate.toYear()),
+
+                          const SizedBox(width: 8),
+
+                          const Text('•'),
+
+                          const SizedBox(width: 8),
+
+                          const Icon(Icons.star, size: 18, color: Colors.amber),
+
+                          const SizedBox(width: 4),
+
+                          Text(widget.movie.voteAverage.toStringAsFixed(1)),
+                        ],
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        'Story',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        widget.movie.overview,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      Text(
+                        'Cast',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      MovieCastSection(cubit: _castCubit),
+
+                      const SizedBox(height: 100),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }

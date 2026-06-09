@@ -5,6 +5,7 @@ import 'package:movie_clean/core/services/failure.dart';
 import 'package:movie_clean/core/services/typedef.dart';
 import 'package:movie_clean/data/datasources/base_datasource.dart';
 import 'package:movie_clean/data/datasources/movie_local_datasource.dart';
+import 'package:movie_clean/domain/entities/movie_cast_entity/movie_cast_entity.dart';
 import 'package:movie_clean/domain/entities/movie_entity/movie_entity.dart';
 import 'package:movie_clean/domain/entities/popular_movie_entity/popular_movie_entity.dart';
 import 'package:movie_clean/domain/entities/search_movie_entity/search_movie_entity.dart';
@@ -103,6 +104,31 @@ class MovieRepository implements IMovieRepository {
           final movieEntity = SearchMovieEntity.fromJson(data);
 
           return right(movieEntity);
+        } catch (e) {
+          return left(Failure.unknown(e));
+        }
+      });
+    } else {
+      return left(const Failure.noInternetConnection());
+    }
+  }
+
+  @override
+  RepoEitherResponse<MovieCastEntity> getMovieCast({
+    required int movieId,
+  }) async {
+    if (await networkInfo.isConnected) {
+      final result = await client.get(
+        'movie/$movieId/credits',
+        queryParameters: {'api_key': Env.movieApiKey},
+      );
+
+      return result.fold((failure) => left(failure), (response) {
+        final data = response.data;
+        if (data == null) return left(Failure.unknown("Response is null"));
+        try {
+          final movieCastEntity = MovieCastEntity.fromJson(data);
+          return right(movieCastEntity);
         } catch (e) {
           return left(Failure.unknown(e));
         }

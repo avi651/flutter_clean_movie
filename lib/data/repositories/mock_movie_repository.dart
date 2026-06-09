@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:movie_clean/core/services/typedef.dart';
+import 'package:movie_clean/data/repositories/cast_mock_data.dart';
 import 'package:movie_clean/data/repositories/movie_mock_data.dart';
+import 'package:movie_clean/domain/entities/movie_cast_entity/movie_cast_entity.dart';
 import 'package:movie_clean/domain/entities/movie_entity/movie_entity.dart';
 import 'package:movie_clean/domain/entities/popular_movie_entity/popular_movie_entity.dart';
 import 'package:movie_clean/domain/entities/search_movie_entity/search_movie_entity.dart';
@@ -27,5 +29,13 @@ class MockMovieRepository implements IMovieRepository {
   }) async {
     await Future.delayed(const Duration(seconds: 2));
     return right(SearchMovieEntity.fromJson(MovieMockData.data));
+  }
+
+  @override
+  RepoEitherResponse<MovieCastEntity> getMovieCast({
+    required int movieId,
+  }) async {
+    await Future.delayed(const Duration(seconds: 2));
+    return right(MovieCastEntity.fromJson(CastMockData.data));
   }
 }

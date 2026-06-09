@@ -22,6 +22,7 @@ import 'package:movie_clean/domain/logger/logger_cubit.dart';
 import 'package:movie_clean/domain/logger/logger_service.dart';
 import 'package:movie_clean/domain/usecases/ai/send_message_usecase.dart';
 import 'package:movie_clean/presentation/ai_chat_cubit/ai_chat_cubit.dart';
+import 'package:movie_clean/presentation/bloc/cast_movie_cubit/cast_movie_cubit.dart';
 import 'package:movie_clean/presentation/bloc/internet_status_cubit/internet_status_cubit.dart';
 import 'package:movie_clean/presentation/bloc/movie_bottom_nav_cubit/movie_bottom_nav_cubit.dart';
 import 'package:movie_clean/core/services/env.dart';
@@ -127,6 +128,10 @@ class AppModule extends Module {
 
     i.addBlocSingleton<SearchMovieCubit>(
       () => SearchMovieCubit(repository: i.get<IMovieRepository>()),
+    );
+
+    i.addBlocSingleton<CastMovieCubit>(
+      () => CastMovieCubit(repository: i.get<IMovieRepository>()),
     );
 
     i.addBlocSingleton<InternetStatusCubit>(() => InternetStatusCubit());
