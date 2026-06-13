@@ -5,6 +5,7 @@ import 'package:movie_clean/domain/logger/logger_cubit.dart';
 import 'package:movie_clean/presentation/ai_chat_cubit/ai_chat_cubit.dart';
 import 'package:movie_clean/presentation/bloc/cast_movie_cubit/cast_movie_cubit.dart';
 import 'package:movie_clean/presentation/bloc/internet_status_cubit/internet_status_cubit.dart';
+import 'package:movie_clean/presentation/bloc/movie_review_cubit/movie_review_cubit.dart';
 import 'package:movie_clean/presentation/bloc/popular_movie_cubit/popular_movie_cubit.dart';
 import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_movie_bloc.dart';
 import 'package:movie_clean/presentation/bloc/movie_bottom_nav_cubit/movie_bottom_nav_cubit.dart';
@@ -28,6 +29,7 @@ class AppBlocScope extends StatelessWidget {
         BlocProvider.value(value: Modular.get<ThemeBloc>()),
         BlocProvider.value(value: Modular.get<AIChatCubit>()),
         BlocProvider.value(value: Modular.get<CastMovieCubit>()),
+        BlocProvider.value(value: Modular.get<MovieReviewCubit>()),
       ],
       child: child,
     );

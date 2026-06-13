@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_clean/core/shared/fetch_state.dart';
-import 'package:movie_clean/presentation/bloc/cast_movie_cubit/cast_movie_cubit.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../bloc/cast_movie_cubit/cast_movie_cubit.dart';
 
 class MovieCastSection extends StatelessWidget {
-  const MovieCastSection({super.key, required this.cubit});
-
-  final CastMovieCubit cubit;
+  const MovieCastSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CastMovieCubit, CastMovieFetchState>(
-      bloc: cubit,
       builder: (context, state) {
-        debugPrint('''
-      isBusy: ${state.isBusy}
-      isError: ${state.isError}
-      data: ${cubit.maybeData}
-      state: $state
-      ''');
+        final cubit = Modular.get<CastMovieCubit>();
+
         if (state.isBusy) {
           return const SizedBox(
             height: 120,
@@ -47,7 +41,7 @@ class MovieCastSection extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: casts.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (_, index) {
               final cast = casts[index];
 

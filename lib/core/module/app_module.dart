@@ -26,6 +26,7 @@ import 'package:movie_clean/presentation/bloc/cast_movie_cubit/cast_movie_cubit.
 import 'package:movie_clean/presentation/bloc/internet_status_cubit/internet_status_cubit.dart';
 import 'package:movie_clean/presentation/bloc/movie_bottom_nav_cubit/movie_bottom_nav_cubit.dart';
 import 'package:movie_clean/core/services/env.dart';
+import 'package:movie_clean/presentation/bloc/movie_review_cubit/movie_review_cubit.dart';
 import 'package:movie_clean/presentation/bloc/popular_movie_cubit/popular_movie_cubit.dart';
 import 'package:movie_clean/presentation/bloc/search_movie_cubit/search_movie_cubit.dart';
 import 'package:movie_clean/presentation/bloc/top_rated_movie_bloc/top_rated_movie_bloc.dart';
@@ -132,6 +133,10 @@ class AppModule extends Module {
 
     i.addBlocSingleton<CastMovieCubit>(
       () => CastMovieCubit(repository: i.get<IMovieRepository>()),
+    );
+
+    i.addBlocSingleton<MovieReviewCubit>(
+      () => MovieReviewCubit(repository: i.get<IMovieRepository>()),
     );
 
     i.addBlocSingleton<InternetStatusCubit>(() => InternetStatusCubit());
