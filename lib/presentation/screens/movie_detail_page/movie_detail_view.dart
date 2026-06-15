@@ -7,9 +7,11 @@ import 'package:movie_clean/domain/entities/movie_result_entity.dart/movie_resul
 
 import 'package:movie_clean/presentation/bloc/cast_movie_cubit/cast_movie_cubit.dart';
 import 'package:movie_clean/presentation/bloc/movie_review_cubit/movie_review_cubit.dart';
+import 'package:movie_clean/presentation/bloc/movie_similar_cubit/movie_similar_cubit.dart';
 
 import 'package:movie_clean/presentation/screens/movie_detail_page/movie_cast_section.dart';
 import 'package:movie_clean/presentation/screens/movie_detail_page/movie_review_section.dart';
+import 'package:movie_clean/presentation/screens/movie_detail_page/movie_similar_section.dart';
 import 'package:movie_clean/presentation/widgets/movie_sticky_header.dart';
 
 class MovieDetailView extends StatefulWidget {
@@ -26,6 +28,7 @@ class MovieDetailView extends StatefulWidget {
 class _MovieDetailViewState extends State<MovieDetailView> {
   late final CastMovieCubit _castCubit;
   late final MovieReviewCubit _reviewCubit;
+  late final MovieSimilarCubit _movieSimilarCubit;
 
   @override
   void initState() {
@@ -33,6 +36,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
 
     _castCubit = Modular.get<CastMovieCubit>();
     _reviewCubit = Modular.get<MovieReviewCubit>();
+    _movieSimilarCubit = Modular.get<MovieSimilarCubit>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -41,13 +45,16 @@ class _MovieDetailViewState extends State<MovieDetailView> {
   }
 
   Future<void> _fetchData() async {
-    if (_castCubit.isClosed || _reviewCubit.isClosed) {
+    if (_castCubit.isClosed ||
+        _reviewCubit.isClosed ||
+        _movieSimilarCubit.isClosed) {
       return;
     }
 
     await Future.wait([
       _castCubit.fetch(movieID: widget.movie.id),
       _reviewCubit.fetch(movieID: widget.movie.id),
+      _movieSimilarCubit.fetch(movieID: widget.movie.id),
     ]);
   }
 
@@ -68,6 +75,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
       providers: [
         BlocProvider.value(value: _castCubit),
         BlocProvider.value(value: _reviewCubit),
+        BlocProvider.value(value: _movieSimilarCubit),
       ],
       child: Scaffold(
         backgroundColor: colorScheme.surface,
@@ -154,7 +162,13 @@ class _MovieDetailViewState extends State<MovieDetailView> {
 
                         const MovieReviewSection(),
 
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 32),
+
+                        const SizedBox(height: 16),
+
+                        const MovieSimilarSection(),
+
+                        const SizedBox(height: 32),
                       ],
                     ),
                   ),

@@ -8,6 +8,7 @@ import 'package:movie_clean/data/datasources/movie_local_datasource.dart';
 import 'package:movie_clean/domain/entities/movie_cast_entity/movie_cast_entity.dart';
 import 'package:movie_clean/domain/entities/movie_entity/movie_entity.dart';
 import 'package:movie_clean/domain/entities/movie_review_entity/movie_review_entity.dart';
+import 'package:movie_clean/domain/entities/movie_similar_entity/movie_similar_entity.dart';
 import 'package:movie_clean/domain/entities/popular_movie_entity/popular_movie_entity.dart';
 import 'package:movie_clean/domain/entities/search_movie_entity/search_movie_entity.dart';
 import 'package:movie_clean/domain/i_movie_repository/i_movie_repository.dart';
@@ -155,6 +156,31 @@ class MovieRepository implements IMovieRepository {
         try {
           final movieReviewEntity = MovieReviewEntity.fromJson(data);
           return right(movieReviewEntity);
+        } catch (e) {
+          return left(Failure.unknown(e));
+        }
+      });
+    } else {
+      return left(const Failure.noInternetConnection());
+    }
+  }
+
+  @override
+  RepoEitherResponse<MovieSimilarEntity> getSimilarMovie({
+    required int movieId,
+  }) async {
+    if (await networkInfo.isConnected) {
+      final result = await client.get(
+        'movie/$movieId/similar',
+        queryParameters: {'api_key': Env.movieApiKey},
+      );
+
+      return result.fold((failure) => left(failure), (response) {
+        final data = response.data;
+        if (data == null) return left(Failure.unknown("Response is null"));
+        try {
+          final movieSimilarEntity = MovieSimilarEntity.fromJson(data);
+          return right(movieSimilarEntity);
         } catch (e) {
           return left(Failure.unknown(e));
         }
