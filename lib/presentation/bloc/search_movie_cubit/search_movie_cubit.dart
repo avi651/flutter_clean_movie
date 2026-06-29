@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ui';
+
 import 'package:bloc/bloc.dart';
 import 'package:movie_clean/core/shared/debouncer.dart';
 import 'package:movie_clean/core/shared/fetch_state.dart';
@@ -50,4 +53,21 @@ class SearchMovieCubit extends Cubit<SearchMovieFetchState> {
     FetchStateSuccess(:final data) => data,
     _ => null,
   };
+}
+
+class Debouncer {
+  Debouncer({this.delay = const Duration(milliseconds: 500)});
+
+  final Duration delay;
+
+  Timer? _timer;
+
+  void run(VoidCallback action) {
+    _timer?.cancel();
+    _timer = Timer(delay, action);
+  }
+
+  void dispose() {
+    _timer?.cancel();
+  }
 }
